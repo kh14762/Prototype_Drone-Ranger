@@ -11,6 +11,7 @@ public class Item
         ManaPotion,
         Coin,
         Medkit,
+        Cube,
     }
 
     public ItemType itemType;
@@ -26,6 +27,15 @@ public class Item
             case ItemType.ManaPotion:       return ItemSprites.Instance.manaPotionSprite;
             case ItemType.Coin:             return ItemSprites.Instance.coinSprite;
             case ItemType.Medkit:           return ItemSprites.Instance.medkitSprite;
+        }
+    }
+
+    public Mesh GetMesh()
+    {
+        switch (itemType)
+        {
+            default:    
+            case ItemType.Cube: return ItemMesh.Instance.cubeMesh;
         }
     }
 }
