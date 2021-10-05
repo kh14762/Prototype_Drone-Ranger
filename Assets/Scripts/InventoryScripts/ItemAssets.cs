@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSprites : MonoBehaviour
+public class ItemAssets : MonoBehaviour
 {
-    public static ItemSprites Instance { get; private set; }
+    public static ItemAssets Instance { get; private set; }
 
     private void Awake()
     {
@@ -16,4 +16,5 @@ public class ItemSprites : MonoBehaviour
     public Sprite manaPotionSprite;
     public Sprite coinSprite;
     public Sprite medkitSprite;
+    public Sprite cubeSprite;
 }

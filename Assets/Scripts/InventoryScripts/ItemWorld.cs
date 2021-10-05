@@ -6,6 +6,7 @@ public class ItemWorld : MonoBehaviour
 {
     private Item item;
     private MeshFilter meshFilter;
+    private Sprite sprite;
     public Mesh mesh;
 
     private void Awake()
@@ -24,5 +25,15 @@ public class ItemWorld : MonoBehaviour
     {
         this.item = item;
         meshFilter.mesh = item.GetMesh();
+    }
+
+    public Item GetItem()
+    {
+        return item;
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Item 
 {
     public enum ItemType
@@ -22,11 +24,12 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.Sword:            return ItemSprites.Instance.swordSprite;
-            case ItemType.HealthPotion:     return ItemSprites.Instance.healthPotionSprite;
-            case ItemType.ManaPotion:       return ItemSprites.Instance.manaPotionSprite;
-            case ItemType.Coin:             return ItemSprites.Instance.coinSprite;
-            case ItemType.Medkit:           return ItemSprites.Instance.medkitSprite;
+            case ItemType.Sword:            return ItemAssets.Instance.swordSprite;
+            case ItemType.HealthPotion:     return ItemAssets.Instance.healthPotionSprite;
+            case ItemType.ManaPotion:       return ItemAssets.Instance.manaPotionSprite;
+            case ItemType.Coin:             return ItemAssets.Instance.coinSprite;
+            case ItemType.Medkit:           return ItemAssets.Instance.medkitSprite;
+            case ItemType.Cube:             return ItemAssets.Instance.cubeSprite;
         }
     }
 
