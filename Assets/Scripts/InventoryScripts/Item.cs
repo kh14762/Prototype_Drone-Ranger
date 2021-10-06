@@ -41,4 +41,19 @@ public class Item
             case ItemType.Cube: return ItemMesh.Instance.cubeMesh;
         }
     }
+    public bool IsStackable()
+    {
+        switch(itemType)
+        {
+            default:
+            case ItemType.Coin:
+            case ItemType.HealthPotion:
+            case ItemType.ManaPotion:
+            case ItemType.Cube:
+                return true;
+            case ItemType.Sword:
+            case ItemType.Medkit:
+                return false;
+        }
+    }
 }

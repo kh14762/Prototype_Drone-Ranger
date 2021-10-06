@@ -22,6 +22,7 @@ public class SojournerController : MonoBehaviour
     void Start()
     {
         inventory = new Inventory();
+        uiInventory.SetSojournerController(this);
         uiInventory.SetInventory(inventory);
 
         //  Test adding pickup objects to scene
@@ -67,5 +68,10 @@ public class SojournerController : MonoBehaviour
             inventory.AddItem(itemWorld.GetItem());
             itemWorld.DestroySelf();
         }
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
     }
 }
