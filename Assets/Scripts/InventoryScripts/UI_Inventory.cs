@@ -85,19 +85,21 @@ public class UI_Inventory : MonoBehaviour
             };
 
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
-
+          
             if (!inventorySlot.IsEmpty())
             {
                 // Not Empty, has Item
                 Transform uiItemTransform = Instantiate(pfUI_Item, itemSlotContainer);
                 uiItemTransform.GetComponent<RectTransform>().anchoredPosition = itemSlotRectTransform.anchoredPosition;
                 UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
+                //Get uiText
+                uiItem.SetAmountText(5);
+                Debug.Log(uiItem);
                 uiItem.SetItem(item);
             }
 
             Inventory.InventorySlot tmpInventorySlot = inventorySlot;
 
-            Debug.Log(itemSlotRectTransform.GetComponent<UI_ItemSlot>());
             UI_ItemSlot uiItemSlot = itemSlotRectTransform.GetComponent<UI_ItemSlot>();
             uiItemSlot.SetOnDropAction(() => {
                 // Dropped on this UI Item Slot
