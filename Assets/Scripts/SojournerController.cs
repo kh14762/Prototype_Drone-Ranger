@@ -21,7 +21,7 @@ public class SojournerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = new Inventory(UseItem);
+        inventory = new Inventory();
         uiInventory.SetSojournerController(this);
         uiInventory.SetInventory(inventory);
 
@@ -73,21 +73,5 @@ public class SojournerController : MonoBehaviour
     public Vector3 GetPosition()
     {
         return transform.position;
-    }
-    
-    //  Use this function to do what ever you want when you use Item.
-    private void UseItem(Item item)
-    {
-        switch (item.itemType)
-        {
-            case Item.ItemType.HealthPotion:
-                Debug.Log("Used Health Potion");
-                inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-                break;
-            case Item.ItemType.ManaPotion:
-                Debug.Log("Used Mana Potion");
-                inventory.RemoveItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
-                break;
-        }
     }
 }

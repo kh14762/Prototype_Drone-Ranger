@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class Inventory
 {
-    public EventHandler OnListItemChange; 
-    
     private List<Item> itemList;
-    private Action<Item> useItemAction;
+    public EventHandler OnListItemChange; 
 
-    public Inventory(Action<Item> useItemAction)
+    public Inventory()
     {
-        this.useItemAction = useItemAction;
         itemList = new List<Item>();
-        //AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.Cube, amount = 1 });
@@ -67,11 +64,6 @@ public class Inventory
             itemList.Remove(item);
         }
         OnListItemChange?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void UseItem(Item item)
-    {
-        useItemAction(item);
     }
 
     public List<Item> GetItemList()
