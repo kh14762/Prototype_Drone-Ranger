@@ -21,7 +21,7 @@ public class SojournerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventory = new Inventory();
+        inventory = new Inventory(UseItem, 8);
         uiInventory.SetSojournerController(this);
         uiInventory.SetInventory(inventory);
 
@@ -73,5 +73,10 @@ public class SojournerController : MonoBehaviour
     public Vector3 GetPosition()
     {
         return transform.position;
+    }
+
+    public void UseItem(Item inventoryItem)
+    {
+        Debug.Log("Use Item: " + inventoryItem);
     }
 }
