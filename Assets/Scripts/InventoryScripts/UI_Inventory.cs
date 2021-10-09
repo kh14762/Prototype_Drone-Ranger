@@ -13,12 +13,15 @@ public class UI_Inventory : MonoBehaviour
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
     private SojournerController player;
+    private CanvasGroup canvasGroup;
 
     private void Awake()
     {
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
         itemSlotTemplate.gameObject.SetActive(false);
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
+        Debug.Log(canvasGroup);
     }
 
     public void SetSojournerController(SojournerController player)
@@ -133,5 +136,14 @@ public class UI_Inventory : MonoBehaviour
         }
     }
 
+    public CanvasGroup GetCanvasGroup()
+    {
+        return canvasGroup;
+    }
+
+    public void SetCanvasGroup(CanvasGroup canvasGroup)
+    {
+        this.canvasGroup = canvasGroup;
+    }
 
 }

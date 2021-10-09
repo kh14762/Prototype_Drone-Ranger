@@ -11,6 +11,7 @@ public class SojournerController : MonoBehaviour
     public float speed = 20.0f;
     private float forwardInput;
     private float horizontalInput;
+    private bool isUiVisible = true;
 
     private Inventory inventory;
     [SerializeField] private UI_Inventory uiInventory;
@@ -51,8 +52,21 @@ public class SojournerController : MonoBehaviour
         // Move Forward or backwards when w or s key is pressed
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
-        /*-------------------------------Player input ends here---------------------------*/
 
+        //  Toggle Inventory
+        if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
+        {
+            uiInventory.GetCanvasGroup().alpha = 0f;
+            uiInventory.GetCanvasGroup().blocksRaycasts = false;
+            isUiVisible = false;
+        } else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
+        {
+            uiInventory.GetCanvasGroup().alpha = 1f;
+            uiInventory.GetCanvasGroup().blocksRaycasts = true;
+            isUiVisible = true;
+        }
+
+        /*-------------------------------Player input ends here---------------------------*/
     }
 
     private void OnCollisionEnter(Collision collision)
