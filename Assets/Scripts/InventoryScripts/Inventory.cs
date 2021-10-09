@@ -105,16 +105,19 @@ public class Inventory : IItemHolder
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void AddItemMergeAmount(Item item, InventorySlot inventorySlot)
+    public void AddItemMergeAmount(Item inventoryItem, Item draggedItem, InventorySlot inventorySlot)
     {
         // Adds an Item and increases amount if same ItemType already present
-        if (item.IsStackable())
+        if (draggedItem.IsStackable())
         {
-            item.amount += item.amount;
+            inventoryItem.amount += draggedItem.amount;
+            
+            Debug.Log(draggedItem.amount);
+            Debug.Log(inventoryItem.amount);
 
-            itemList.Add(item);
-            item.SetItemHolder(this);
-            inventorySlot.SetItem(item);
+            itemList.Add(inventoryItem);
+            draggedItem.SetItemHolder(this);
+            inventorySlot.SetItem(inventoryItem);
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }

@@ -76,22 +76,22 @@ public class UI_Inventory : MonoBehaviour
                 //Get uiText
                 uiItem.SetAmountText(5);
                 uiItem.SetItem(item);
-                Debug.Log(uiItem);
+               
 
-                //  Drag 
+                //  Drag on same item to merge together
+                //  below code is jank
                 uiItem.SetOnDropAction(() =>
                 {
                     Debug.Log("Dropped on ui_Item!");
                     //  Check if item is stackable
                     Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;
-                    Debug.Log(tmpInventorySlot.GetItem());
-                    Debug.Log(draggedItem);
+                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;                   
+                    Debug.Log(draggedItem.amount);
                     if (tmpInventorySlot.GetItem().ToString() == draggedItem.ToString())
                     {
                         draggedItem.RemoveFromItemHolder();
-                        inventory.AddItemMergeAmount(draggedItem, tmpInventorySlot);
-                    }
+                        inventory.AddItemMergeAmount(item, draggedItem, tmpInventorySlot);
+                    } 
                 });
             }
 
