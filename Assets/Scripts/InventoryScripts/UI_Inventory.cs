@@ -53,39 +53,20 @@ public class UI_Inventory : MonoBehaviour
         float itemSlotCellSize = 75f;
         foreach (Inventory.InventorySlot inventorySlot in inventory.GetInventorySlotArray())
         {
-            Item item = inventorySlot.GetItem();
-
+            Item item = inventorySlot.GetItem(); 
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
             itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
-                // Use item
-                Debug.Log("Mouse Left Clicked");
-                //inventory.UseItem(item);
+                Debug.Log("Left Clicked on UI_Inventory");    
             };
             itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () => {
-                // Split item
-                if (item.IsStackable())
-                {
-                    // Is Stackable
-                    if (item.amount > 2)
-                    {
-                        // Can split
-                        int splitAmount = Mathf.FloorToInt(item.amount / 2f);
-                        item.amount -= splitAmount;
-                        Item duplicateItem = new Item { itemType = item.itemType, amount = splitAmount };
-                        inventory.AddItem(duplicateItem);
-                    }
-                }
-
-                // Drop item
-                //Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
-                //inventory.RemoveItem(item);
-                //ItemWorld.DropItem(player.GetPosition(), duplicateItem);
+                Debug.Log("Right Clicked on UI_Inventory");
             };
 
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
-          
+
+            
             if (!inventorySlot.IsEmpty())
             {
                 // Not Empty, has Item
@@ -94,19 +75,41 @@ public class UI_Inventory : MonoBehaviour
                 UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
                 //Get uiText
                 uiItem.SetAmountText(5);
-                Debug.Log(uiItem);
                 uiItem.SetItem(item);
+                Debug.Log(uiItem);
+
+                //  Drag 
+                uiItem.SetOnDropAction(() =>
+                {
+                    Debug.Log("Dropped on ui_Item!");
+                    //  Check if item is stackable
+                    Item draggedItem = UI_ItemDrag.Instance.GetItem();
+                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;
+                    Debug.Log(tmpInventorySlot.GetItem());
+                    Debug.Log(draggedItem);
+                    if (tmpInventorySlot.GetItem().ToString() == draggedItem.ToString())
+                    {
+                        draggedItem.RemoveFromItemHolder();
+                        inventory.AddItemMergeAmount(draggedItem, tmpInventorySlot);
+                    }
+                });
             }
 
-            Inventory.InventorySlot tmpInventorySlot = inventorySlot;
-
             UI_ItemSlot uiItemSlot = itemSlotRectTransform.GetComponent<UI_ItemSlot>();
-            uiItemSlot.SetOnDropAction(() => {
+            uiItemSlot.SetOnDropAction(() =>
+            {
                 // Dropped on this UI Item Slot
                 Item draggedItem = UI_ItemDrag.Instance.GetItem();
+                Inventory.InventorySlot tmpInventorySlot = inventorySlot;
                 draggedItem.RemoveFromItemHolder();
                 inventory.AddItem(draggedItem, tmpInventorySlot);
             });
+
+
+            // Drop item
+            //Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
+            //inventory.RemoveItem(item);
+            //ItemWorld.DropItem(player.GetPosition(), duplicateItem);
 
             //Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             //image.sprite = item.GetSprite();

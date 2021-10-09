@@ -16,8 +16,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
-public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
 
     private Canvas canvas;
@@ -116,6 +117,20 @@ public class UI_Item : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IE
         this.item = item;
         SetSprite(Item.GetSprite(item.itemType));
         SetAmountText(item.amount);
+    }
+
+    //  On Drop behavior
+    private Action onDropAction;
+
+    public void SetOnDropAction(Action onDropAction)
+    {
+        this.onDropAction = onDropAction;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        UI_ItemDrag.Instance.Hide();
+        onDropAction();
     }
 
 }

@@ -65,7 +65,7 @@ public class SojournerController : MonoBehaviour
         ItemWorld itemWorld = other.GetComponent<ItemWorld>();
         if (itemWorld != null)
         {
-            inventory.AddItem(itemWorld.GetItem());
+            inventory.AddItemMergeAmount(itemWorld.GetItem());
             itemWorld.DestroySelf();
         }
     }

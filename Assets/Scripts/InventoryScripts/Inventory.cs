@@ -24,6 +24,8 @@ public class Inventory : IItemHolder
 
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
         AddItem(new Item { itemType = Item.ItemType.Cube, amount = 10 });
+        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 4 });
+
         //AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
         //AddItem(new Item { itemType = Item.ItemType.Cube, amount = 1 });
@@ -102,6 +104,21 @@ public class Inventory : IItemHolder
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
+
+    public void AddItemMergeAmount(Item item, InventorySlot inventorySlot)
+    {
+        // Adds an Item and increases amount if same ItemType already present
+        if (item.IsStackable())
+        {
+            item.amount += item.amount;
+
+            itemList.Add(item);
+            item.SetItemHolder(this);
+            inventorySlot.SetItem(item);
+        }
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public void RemoveItem(Item item)
     {
         GetInventorySlotWithItem(item).RemoveItem();
