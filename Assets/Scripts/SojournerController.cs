@@ -43,6 +43,9 @@ public class SojournerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Lock cursor when playing
+        Cursor.lockState = CursorLockMode.Locked;
+
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed
         if (Input.GetKey(KeyCode.LeftShift) && isOnGround)
@@ -57,9 +60,33 @@ public class SojournerController : MonoBehaviour
         // movement
         verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
-        // Move Forward or backwards when w or s key is pressed
+
+        // camera rotation
+        Vector3 forward = sojournerCamera.transform.forward;
+        Vector3 right = sojournerCamera.transform.right;
+        right.y = 0;
+        forward.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        // Move Direction
+        Vector3 MoveDirection = forward * verticalInput + right * horizontalInput;
+
+        // Move sojourner
+        sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
+        //transform.Translate(forward * verticalInput * sojournerSpeed * Time.deltaTime);
+        //transform.Translate(right * horizontalInput * sojournerSpeed * Time.deltaTime);
+
+        // Rotate sojourner in the direction they are moving
+        if (MoveDirection != new Vector3(0, 0, 0))
+        {
+            transform.rotation = Quaternion.LookRotation(MoveDirection);
+        }
+        
+
+        /*// Move Forward or backwards when w or s key is pressed
         transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
-        transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);
+        transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
 
         // jump
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
@@ -67,6 +94,7 @@ public class SojournerController : MonoBehaviour
             sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
         }
+
         //----------------------------------------------------------Player Inventory----------------------------------------------------//
         //  Toggle Player Inventory
         if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
