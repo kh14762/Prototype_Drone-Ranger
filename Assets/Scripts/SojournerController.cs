@@ -12,6 +12,8 @@ public class SojournerController : MonoBehaviour
     private float forwardInput;
     private float horizontalInput;
     private bool isUiVisible = true;
+    private bool isReceptUIVis = false;
+    private Receptacle receptacle;
 
     private Inventory inventory;
     [SerializeField] private UI_Inventory uiInventory;
@@ -33,6 +35,9 @@ public class SojournerController : MonoBehaviour
 
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+
+        receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
+        Debug.Log(receptacle);
     }
 
     // Update is called once per frame
@@ -53,18 +58,39 @@ public class SojournerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
 
-        //  Toggle Inventory
+        //  Toggle Player Inventory
         if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
         {
-            uiInventory.GetCanvasGroup().alpha = 0f;
-            uiInventory.GetCanvasGroup().blocksRaycasts = false;
-            isUiVisible = false;
+            HideUI();
+            SetIsUiVisible(false);
         } else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
         {
-            uiInventory.GetCanvasGroup().alpha = 1f;
-            uiInventory.GetCanvasGroup().blocksRaycasts = true;
-            isUiVisible = true;
+            ShowUI();
+            SetIsUiVisible(true);
         }
+
+        // Toggle Receptacle UI with E
+        if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
+        {
+            if (isReceptUIVis == false)
+            {
+                receptacle.Interact();
+                isReceptUIVis = true;
+                if (GetIsUiVisible() == false)
+                {
+                    ShowUI();
+                    SetIsUiVisible(true);
+                }
+            } else
+            {
+                receptacle.HideUI();
+                isReceptUIVis = false;
+                HideUI();
+                SetIsUiVisible(false);
+            }
+
+        }
+
 
         /*-------------------------------Player input ends here---------------------------*/
     }
@@ -76,6 +102,8 @@ public class SojournerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        
         ItemWorld itemWorld = other.GetComponent<ItemWorld>();
         if (itemWorld != null)
         {
@@ -92,5 +120,25 @@ public class SojournerController : MonoBehaviour
     public void UseItem(Item inventoryItem)
     {
         Debug.Log("Use Item: " + inventoryItem);
+    }
+
+    public void SetIsUiVisible(bool isUiVisible)
+    {
+        this.isUiVisible = isUiVisible;
+    }
+    public bool GetIsUiVisible()
+    {
+        return isUiVisible;
+    }
+
+    public void ShowUI()
+    {
+        uiInventory.GetCanvasGroup().alpha = 1f;
+        uiInventory.GetCanvasGroup().blocksRaycasts = true;
+    }
+    public void HideUI()
+    {
+        uiInventory.GetCanvasGroup().alpha = 0f;
+        uiInventory.GetCanvasGroup().blocksRaycasts = false;
     }
 }

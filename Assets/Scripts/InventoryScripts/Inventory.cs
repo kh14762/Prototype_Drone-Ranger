@@ -11,6 +11,16 @@ public class Inventory : IItemHolder
     private Action<Item> useItemAction;
     public InventorySlot[] inventorySlotArray;
 
+    public Inventory(int inventorySlotCount)
+    {
+        itemList = new List<Item>();
+
+        inventorySlotArray = new InventorySlot[inventorySlotCount];
+        for (int i = 0; i < inventorySlotCount; i++)
+        {
+            inventorySlotArray[i] = new InventorySlot(i);
+        }
+    }
     public Inventory(Action<Item> useItemAction, int inventorySlotCount)
     {
         this.useItemAction = useItemAction;
