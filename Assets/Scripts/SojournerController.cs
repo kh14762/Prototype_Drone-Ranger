@@ -10,12 +10,13 @@ public class SojournerController : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
-    private float gravityModifier = 9.81f;
+    //private float gravityModifier = 9.81f;
+    public float gravityModifier = 9.81f;
     public float jumpForce = 3.0f;
     private float directionY;
-    public float sojournerWalkSpeed = 5.0f;
-    public float sojournerSprintSpeed = 10.0f;
-    public float sojournerSpeed;
+    public float sojournerWalkSpeed = 15.0f;
+    public float sojournerSprintSpeed = 25.0f;
+    private float sojournerSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -37,8 +38,8 @@ public class SojournerController : MonoBehaviour
         }
 
         // movement
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized; // normalized prevents player from moving faster diagonally
 
         if (direction.magnitude >= 0.1f)
