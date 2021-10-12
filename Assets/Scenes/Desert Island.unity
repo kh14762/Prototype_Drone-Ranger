@@ -2289,7 +2289,7 @@ MonoBehaviour:
   verticalInput: 0
   horizontalInput: 0
   uiInventory: {fileID: 1423991548}
-  sojournerWalkSpeed: 15
+  sojournerWalkSpeed: 16
   sojournerSprintSpeed: 25
 --- !u!54 &1720280100
 Rigidbody:
