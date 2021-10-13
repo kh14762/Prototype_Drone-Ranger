@@ -44,7 +44,7 @@ public class SojournerController : MonoBehaviour
     void Update()
     {
         // Lock cursor when playing
-        Cursor.lockState = CursorLockMode.Locked;
+       //Cursor.lockState = CursorLockMode.Locked;
 
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed
@@ -119,6 +119,7 @@ public class SojournerController : MonoBehaviour
                 {
                     ShowUI();
                     SetIsUiVisible(true);
+                    
                 }
             }
             else
