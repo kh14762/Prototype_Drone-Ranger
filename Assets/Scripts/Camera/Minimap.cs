@@ -20,7 +20,7 @@ public class Minimap : MonoBehaviour
         Vector3 position = sojourner.position + offset;
         transform.position = position;
 
-        // rotate minimap
-        transform.rotation = Quaternion.Euler(90f, sojourner.eulerAngles.y, 0f);
+        // rotate minimapww
+        //transform.rotation = Quaternion.Euler(90f, sojourner.eulerAngles.y, 0f);
     }
 }

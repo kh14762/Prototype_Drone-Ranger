@@ -33,7 +33,7 @@ public class Inventory : IItemHolder
         }
 
         AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Cube, amount = 10 });
+        AddItem(new Item { itemType = Item.ItemType.Cube, amount = 3 });
         AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 4 });
 
         //AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });

@@ -8,9 +8,9 @@ public class SojournerController : MonoBehaviour
     private Rigidbody sojournerRigidBody;
     public float jumpForce;
     public float gravityModifier;
-    public bool isOnGround = true;
     public float verticalInput;
     public float horizontalInput;
+    public bool isOnGround = true;
     private bool isUiVisible = true;
     private bool isReceptUIVis = false;
     private Receptacle receptacle;
@@ -30,21 +30,30 @@ public class SojournerController : MonoBehaviour
         uiInventory.SetInventory(inventory);
 
         //  Test adding pickup objects to scene
-        ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(3, 1, 0), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(0, 1, -3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
+        for (int i = 0; i < 12; i += 3)
+        {
+            for (int j = 0; j < 12; j += 3) {
+                ItemWorld.SpawnItemWorld(new Vector3(i, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
+            }
+        }
+        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(3, 1, 0), new Item { itemType = Item.ItemType.Cube, amount = 1 });
+        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, -3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
         receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
         Debug.Log(receptacle);
+        HideUI();
+        SetIsUiVisible(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Lock cursor when playing
-       //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //  TODO: unlock when using inventory
 
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed

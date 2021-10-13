@@ -17,4 +17,7 @@ public class ItemAssets : MonoBehaviour
     public Sprite coinSprite;
     public Sprite medkitSprite;
     public Sprite cubeSprite;
+    public Sprite MetalScrapSprite;
+    public Sprite PolymerScrapSprite;
+    public Sprite SiliconScrapSprite;
 }
