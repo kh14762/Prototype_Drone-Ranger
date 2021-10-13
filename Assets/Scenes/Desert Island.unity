@@ -296,8 +296,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7091097, y: 1, z: 1.575315}
-  m_Center: {x: 0.0066896286, y: 0, z: 0.0066896286}
+  m_Size: {x: 2.5441062, y: 1, z: 2.3413415}
+  m_Center: {x: 0.030919468, y: 0, z: 0.059900552}
 --- !u!23 &55859778
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -309,7 +309,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -974,7 +973,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5171673, y: 1}
+    m_SensorSize: {x: 2.6904762, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1009,12 +1008,12 @@ MonoBehaviour:
   m_XAxis:
     Value: 0
     m_SpeedMode: 0
-    m_MaxSpeed: 450
+    m_MaxSpeed: 800
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
-    m_InvertInput: 1
+    m_InvertInput: 0
     m_MinValue: -180
     m_MaxValue: 180
     m_Wrap: 1
@@ -1025,7 +1024,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: -1
       m_LegacyVelocityFilterStrength: -1
   m_Heading:
-    m_Definition: 2
+    m_Definition: 3
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -1041,7 +1040,7 @@ MonoBehaviour:
     m_Radius: 12
   - m_Height: 5
     m_Radius: 17
-  - m_Height: -1.5
+  - m_Height: 3
     m_Radius: 12
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
@@ -1092,7 +1091,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1582,7 +1580,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899556985}
-  m_LocalRotation: {x: 0.12451125, y: 0.000000028625426, z: -0.000000003592684, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451125, y: 0.000000030578697, z: -0.0000000038377963, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1626,7 +1624,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5171673, y: 1}
+    m_SensorSize: {x: 2.6904762, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1652,7 +1650,6 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194230}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1718,7 +1715,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12451124, y: 0.000000031268275, z: -0.000000003923786, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: 0.000000031957654, z: -0.0000000040102948, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 6.21, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1726,20 +1723,6 @@ Transform:
   m_Father: {fileID: 1558632834}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.069, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bda30c7634374fe4a5394dd7364d37b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1720280098}
-  rotateSpeed: 5
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,7 +1814,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2064,7 +2046,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2142,7 +2123,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1038921497}
   - component: {fileID: 1038921499}
-  - component: {fileID: 1038921498}
   - component: {fileID: 1038921500}
   m_Layer: 0
   m_Name: Minimap Camera
@@ -2165,14 +2145,6 @@ Transform:
   m_Father: {fileID: 1558632834}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!81 &1038921498
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1038921496}
-  m_Enabled: 1
 --- !u!20 &1038921499
 Camera:
   m_ObjectHideFlags: 0
@@ -2199,8 +2171,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 7
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2361,7 +2333,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 2
+    m_Definition: 3
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -2596,7 +2568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -125, y: 125}
+  m_AnchoredPosition: {x: -1720, y: 565}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354102165
@@ -2717,7 +2689,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 2
+    m_Definition: 3
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:
@@ -2971,7 +2943,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566408608}
-  m_LocalRotation: {x: 0.10649046, y: 0.000000021714095, z: -0.0000000023261097, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649046, y: 0.000000022491351, z: -0.0000000024093538, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3015,7 +2987,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5171673, y: 1}
+    m_SensorSize: {x: 2.6904762, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3135,12 +3107,12 @@ MonoBehaviour:
   sojournerCamera: {fileID: 963194228}
   jumpForce: 13
   gravityModifier: 1
-  isOnGround: 0
   verticalInput: 0
   horizontalInput: 0
+  isOnGround: 0
   uiInventory: {fileID: 1423991548}
-  sojournerWalkSpeed: 5
-  sojournerSprintSpeed: 10
+  sojournerWalkSpeed: 14
+  sojournerSprintSpeed: 20
 --- !u!54 &1720280100
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3154,7 +3126,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1720280101
@@ -3182,7 +3154,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3534,6 +3505,9 @@ MonoBehaviour:
   coinSprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
   medkitSprite: {fileID: 21300000, guid: fbb108ca9ae39704c94c4c6321df3d1a, type: 3}
   cubeSprite: {fileID: 21300000, guid: e26af5692c00641b89c2596daa35232c, type: 3}
+  MetalScrapSprite: {fileID: 21300000, guid: 256b3ab8d502f6b478dc4e3626c47f21, type: 3}
+  PolymerScrapSprite: {fileID: 21300000, guid: a15501f0e3f737b479b028c016150db8, type: 3}
+  SiliconScrapSprite: {fileID: 21300000, guid: 44c9801f141d49042aaf8e26904f51c3, type: 3}
 --- !u!1 &2083440327
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,7 +3645,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.14253858, y: 0.000000020092763, z: -0.0000000028940836, w: 0.98978925}
+  m_LocalRotation: {x: 0.14253858, y: 0.0000000052469824, z: -7.561576e-10, w: 0.98978925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3715,7 +3689,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.5171673, y: 1}
+    m_SensorSize: {x: 2.6904762, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3807,7 +3781,7 @@ MonoBehaviour:
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
-    m_Definition: 2
+    m_Definition: 3
     m_VelocityFilterStrength: 4
     m_Bias: 0
   m_RecenterToTargetHeading:

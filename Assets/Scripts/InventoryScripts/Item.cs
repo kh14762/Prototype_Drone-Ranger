@@ -14,6 +14,9 @@ public class Item
         Coin,
         Medkit,
         Cube,
+        MetalScrap,
+        PolymerScrap,
+        SiliconScrap,
     }
 
     public ItemType itemType;
@@ -62,6 +65,9 @@ public class Item
             case ItemType.Coin:             return ItemAssets.Instance.coinSprite;
             case ItemType.Medkit:           return ItemAssets.Instance.medkitSprite;
             case ItemType.Cube:             return ItemAssets.Instance.cubeSprite;
+            case ItemType.MetalScrap:       return ItemAssets.Instance.MetalScrapSprite;
+            case ItemType.PolymerScrap:     return ItemAssets.Instance.PolymerScrapSprite;
+            case ItemType.SiliconScrap:     return ItemAssets.Instance.SiliconScrapSprite;
         }
     }
 
@@ -87,6 +93,9 @@ public class Item
             case ItemType.HealthPotion:
             case ItemType.ManaPotion:
             case ItemType.Cube:
+            case ItemType.MetalScrap: 
+            case ItemType.PolymerScrap: 
+            case ItemType.SiliconScrap:      
                 return true;
             case ItemType.Sword:
             case ItemType.Medkit:
