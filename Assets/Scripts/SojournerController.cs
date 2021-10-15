@@ -126,7 +126,6 @@ public class SojournerController : MonoBehaviour
                 {
                     ShowUI();
                     SetIsUiVisible(true);
-                    
                 }
             }
             else

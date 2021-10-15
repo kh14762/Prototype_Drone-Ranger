@@ -43,10 +43,13 @@ public class Receptacle : MonoBehaviour, IInteractable
         {
             SetIsPlayerColliding(false);
             //  tell the s* controller that receptacle UI is hidden
-            s_controller.SetIsReceptUIVis(false);
             //  Hide the player ui and tell controller
-            s_controller.HideUI();
-            s_controller.SetIsUiVisible(false);
+            if (s_controller.GetIsReceptUIVis() == true)
+            {
+                s_controller.HideUI();
+                s_controller.SetIsUiVisible(false);
+            }
+            s_controller.SetIsReceptUIVis(false);
             Debug.Log("player no longer colliding with receptacle");
             //  Hide receptacle ui
             this.HideUI();
