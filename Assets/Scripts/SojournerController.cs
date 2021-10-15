@@ -83,8 +83,6 @@ public class SojournerController : MonoBehaviour
 
         // Move sojourner
         sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
-        //transform.Translate(forward * verticalInput * sojournerSpeed * Time.deltaTime);
-        //transform.Translate(right * horizontalInput * sojournerSpeed * Time.deltaTime);
 
         // Rotate sojourner in the direction they are moving
         if (MoveDirection != new Vector3(0, 0, 0))
@@ -174,6 +172,14 @@ public class SojournerController : MonoBehaviour
     public bool GetIsUiVisible()
     {
         return isUiVisible;
+    }
+    public void SetIsReceptUIVis(bool isReceptUIVis)
+    {
+        this.isReceptUIVis = isReceptUIVis;
+    }
+    public bool GetIsReceptUIVis()
+    {
+        return isReceptUIVis;
     }
 
     public void ShowUI()

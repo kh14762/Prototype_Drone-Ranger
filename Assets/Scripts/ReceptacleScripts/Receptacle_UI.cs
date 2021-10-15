@@ -122,9 +122,4 @@ public class Receptacle_UI : MonoBehaviour
     {
         this.canvasGroup = canvasGroup;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
