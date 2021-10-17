@@ -2,13 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefiningStationSystem
+public class RefiningStationSystem : MonoBehaviour
 {
     Item item;
-    public RefiningStationSystem()
-    {
-        item = new Item();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
