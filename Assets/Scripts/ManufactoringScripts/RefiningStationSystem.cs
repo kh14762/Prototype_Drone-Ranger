@@ -1,18 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RefiningStationSystem : MonoBehaviour
 {
-    public EventHandler OnChange;
     Item item;
-    [SerializeField] private UI_RefiningSystem ui_refiningSystem;
 
-    private void Start()
-    {
-        ui_refiningSystem.SetRefiningStationSystem(this);
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -29,7 +22,7 @@ public class RefiningStationSystem : MonoBehaviour
         }
     }
 
-    public bool IsEmpty()
+    private bool IsEmpty()
     {
         // return true if null else return false
         return item == null;
@@ -43,19 +36,16 @@ public class RefiningStationSystem : MonoBehaviour
     public void SetItem(Item item)
     {
         this.item = item;
-        OnChange?.Invoke(this, EventArgs.Empty);
     }
 
     public void IncreaseItemAmount()
     {
         GetItem().amount++;
-        OnChange?.Invoke(this, EventArgs.Empty);
     }
 
     public void DecreaseItemAmount()
     {
         GetItem().amount--;
-        OnChange?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemoveItem()
