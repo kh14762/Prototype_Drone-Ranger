@@ -10,14 +10,23 @@ public class UI_RefiningSystem : MonoBehaviour
     private Transform itemContainer;
 
 
-    private void Awake()
+    void Start()
     {
         inputSlot = transform.Find("InputSlot");
         outputSlotTransform = transform.Find("OutputSlot");
         itemContainer = transform.Find("ItemContainer");
 
-        CreateItemInput(new Item { itemType = Item.ItemType.Cube });
-        
+        //  Subscrib to on item dropped event
+        UI_RefiningStationSlot refiningStationSlot = inputSlot.GetComponent<UI_RefiningStationSlot>();
+        refiningStationSlot.OnItemDropped += UI_RefiningSystem_OnItemDropped;
+
+        //CreateItemInput(new Item { itemType = Item.ItemType.Cube });
+        //CreateItemOutput(new Item { itemType = Item.ItemType.MetalScrap });
+    }
+
+    private void UI_RefiningSystem_OnItemDropped(object sender, UI_RefiningStationSlot.OnItemDroppedEventArgs e)
+    {
+        Debug.Log(e.item); 
     }
 
     private void CreateItemInput(Item item)
