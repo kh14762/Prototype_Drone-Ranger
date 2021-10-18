@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class UI_RefiningSystem : MonoBehaviour
     private Transform inputSlot;
     private Transform outputSlotTransform;
     private Transform itemContainer;
+    private RefiningStationSystem refiningSystem;
 
 
     void Start()
@@ -24,9 +26,40 @@ public class UI_RefiningSystem : MonoBehaviour
         //CreateItemOutput(new Item { itemType = Item.ItemType.MetalScrap });
     }
 
+    public void SetRefiningStationSystem(RefiningStationSystem refiningSystem)
+    {
+        this.refiningSystem = refiningSystem;
+        refiningSystem.OnChange += RefiningStationSystem_OnChange;
+
+        UpdateUI();
+    }
+
+    private void RefiningStationSystem_OnChange(object sender, System.EventArgs e)
+    {
+        UpdateUI();
+    }
+
+
     private void UI_RefiningSystem_OnItemDropped(object sender, UI_RefiningStationSlot.OnItemDroppedEventArgs e)
     {
-        Debug.Log(e.item); 
+        Debug.Log(e.item);
+        refiningSystem.TryAddItem(e.item);
+        
+    }
+
+    private void UpdateUI()
+    {
+        //  clear old items
+        foreach (Transform child in itemContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //  Spawn item in input slot
+        if (!refiningSystem.IsEmpty())
+        {
+            CreateItemInput(refiningSystem.GetItem());
+        }
     }
 
     private void CreateItemInput(Item item)
