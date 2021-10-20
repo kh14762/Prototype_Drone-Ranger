@@ -20,7 +20,11 @@ public class SojournerController : MonoBehaviour
 
     public float sojournerWalkSpeed = 15.0f;
     public float sojournerSprintSpeed = 25.0f;
-    private float sojournerSpeed;
+    public float sojournerSpeed;
+
+    public Vector3 MoveDirection;
+
+    public bool enableInput;
 
     // Start is called before the first frame update
     void Start()
@@ -46,14 +50,49 @@ public class SojournerController : MonoBehaviour
         Debug.Log(receptacle);
         HideUI();
         SetIsUiVisible(false);
+        enableInput = true;
+
+        // Lock cursor when playing
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
+
+
+    void FixedUpdate()
+    {
+        if (enableInput)
+        {
+            // movement
+            verticalInput = Input.GetAxis("Vertical");
+            horizontalInput = Input.GetAxis("Horizontal");
+
+            // camera rotation
+            Vector3 forward = sojournerCamera.transform.forward;
+            Vector3 right = sojournerCamera.transform.right;
+            right.y = 0;
+            forward.y = 0;
+            forward.Normalize();
+            right.Normalize();
+
+            // Move Direction
+            MoveDirection = forward * verticalInput + right * horizontalInput;
+
+            // Move sojourner
+            sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
+
+            // Rotate sojourner in the direction they are moving
+            if (MoveDirection != new Vector3(0, 0, 0))
+            {
+                transform.rotation = Quaternion.LookRotation(MoveDirection);
+            }
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        // Lock cursor when playing
-        //Cursor.lockState = CursorLockMode.Locked;
-        //  TODO: unlock when using inventory
+        
 
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed
@@ -64,32 +103,6 @@ public class SojournerController : MonoBehaviour
         else
         {
             sojournerSpeed = sojournerWalkSpeed;
-        }
-
-        // movement
-        verticalInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
-
-        // camera rotation
-        Vector3 forward = sojournerCamera.transform.forward;
-        Vector3 right = sojournerCamera.transform.right;
-        right.y = 0;
-        forward.y = 0;
-        forward.Normalize();
-        right.Normalize();
-
-        // Move Direction
-        Vector3 MoveDirection = forward * verticalInput + right * horizontalInput;
-
-        // Move sojourner
-        sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
-        //transform.Translate(forward * verticalInput * sojournerSpeed * Time.deltaTime);
-        //transform.Translate(right * horizontalInput * sojournerSpeed * Time.deltaTime);
-
-        // Rotate sojourner in the direction they are moving
-        if (MoveDirection != new Vector3(0, 0, 0))
-        {
-            transform.rotation = Quaternion.LookRotation(MoveDirection);
         }
         
 
@@ -108,11 +121,13 @@ public class SojournerController : MonoBehaviour
         //  Toggle Player Inventory
         if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
         {
+            Cursor.lockState = CursorLockMode.Locked; // lock cursor
             HideUI();
             SetIsUiVisible(false);
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
         {
+            Cursor.lockState = CursorLockMode.None; // unlock cursor
             ShowUI();
             SetIsUiVisible(true);
         }
@@ -122,6 +137,7 @@ public class SojournerController : MonoBehaviour
         {
             if (isReceptUIVis == false)
             {
+                Cursor.lockState = CursorLockMode.None; // unlock cursor
                 receptacle.Interact();
                 isReceptUIVis = true;
                 if (GetIsUiVisible() == false)
@@ -133,6 +149,7 @@ public class SojournerController : MonoBehaviour
             }
             else
             {
+                Cursor.lockState = CursorLockMode.Locked; // lock cursor
                 receptacle.HideUI();
                 isReceptUIVis = false;
                 HideUI();
