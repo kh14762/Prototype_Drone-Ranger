@@ -6,6 +6,8 @@ public class SojournerController : MonoBehaviour
 {
     public Transform sojournerCamera;
     private Rigidbody sojournerRigidBody;
+    public GameManager gameManager;
+    public Spear weapon;
     public float jumpForce;
     public float gravityModifier;
     public float verticalInput;
@@ -34,12 +36,12 @@ public class SojournerController : MonoBehaviour
         uiInventory.SetInventory(inventory);
 
         //  Test adding pickup objects to scene
-        for (int i = 0; i < 12; i += 3)
+        /*for (int i = 0; i < 12; i += 3)
         {
             for (int j = 0; j < 12; j += 3) {
                 ItemWorld.SpawnItemWorld(new Vector3(i, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
             }
-        }
+        }*/
         //ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(3, 1, 0), new Item { itemType = Item.ItemType.Cube, amount = 1 });
         //ItemWorld.SpawnItemWorld(new Vector3(0, 1, -3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
@@ -60,103 +62,122 @@ public class SojournerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (enableInput)
+        if (gameManager.isGameActive)
         {
-            // movement
-            verticalInput = Input.GetAxis("Vertical");
-            horizontalInput = Input.GetAxis("Horizontal");
-
-            // camera rotation
-            Vector3 forward = sojournerCamera.transform.forward;
-            Vector3 right = sojournerCamera.transform.right;
-            right.y = 0;
-            forward.y = 0;
-            forward.Normalize();
-            right.Normalize();
-
-            // Move Direction
-            MoveDirection = forward * verticalInput + right * horizontalInput;
-
-            // Move sojourner
-            sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
-
-            // Rotate sojourner in the direction they are moving
-            if (MoveDirection != new Vector3(0, 0, 0))
+            if (enableInput)
             {
-                transform.rotation = Quaternion.LookRotation(MoveDirection);
+                // movement
+                verticalInput = Input.GetAxis("Vertical");
+                horizontalInput = Input.GetAxis("Horizontal");
+
+                // camera rotation
+                Vector3 forward = sojournerCamera.transform.forward;
+                Vector3 right = sojournerCamera.transform.right;
+                right.y = 0;
+                forward.y = 0;
+                forward.Normalize();
+                right.Normalize();
+
+                // Move Direction
+                MoveDirection = forward * verticalInput + right * horizontalInput;
+
+                // Move sojourner
+                sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
+
+                // Rotate sojourner in the direction they are moving
+                if (MoveDirection != new Vector3(0, 0, 0))
+                {
+                    transform.rotation = Quaternion.LookRotation(MoveDirection);
+                }
             }
         }
+        
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        
-
-        //----------------------------------------------------------Player Input----------------------------------------------------//
-        // sprint speed
-        if (Input.GetKey(KeyCode.LeftShift) && isOnGround)
+        if (gameManager.isGameActive)
         {
-            sojournerSpeed = sojournerSprintSpeed;
-        }
-        else
-        {
-            sojournerSpeed = sojournerWalkSpeed;
-        }
-        
-
-        /*// Move Forward or backwards when w or s key is pressed
-        transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
-        transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
-
-        // jump
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
-        }
-
-        //----------------------------------------------------------Player Inventory----------------------------------------------------//
-        //  Toggle Player Inventory
-        if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
-        {
-            Cursor.lockState = CursorLockMode.Locked; // lock cursor
-            HideUI();
-            SetIsUiVisible(false);
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
-        {
-            Cursor.lockState = CursorLockMode.None; // unlock cursor
-            ShowUI();
-            SetIsUiVisible(true);
-        }
-
-        // Toggle Receptacle UI with E
-        if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
-        {
-            if (isReceptUIVis == false)
+            //----------------------------------------------------------Player Input----------------------------------------------------//
+            // sprint speed
+            if (Input.GetKey(KeyCode.LeftShift) && isOnGround)
             {
-                Cursor.lockState = CursorLockMode.None; // unlock cursor
-                receptacle.Interact();
-                isReceptUIVis = true;
-                if (GetIsUiVisible() == false)
-                {
-                    ShowUI();
-                    SetIsUiVisible(true);
-                    
-                }
+                sojournerSpeed = sojournerSprintSpeed;
             }
             else
             {
+                sojournerSpeed = sojournerWalkSpeed;
+            }
+
+
+            /*// Move Forward or backwards when w or s key is pressed
+            transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
+            transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
+
+            // jump
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            {
+                sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isOnGround = false;
+            }
+
+            //----------------------------------------------------------Player Inventory----------------------------------------------------//
+            //  Toggle Player Inventory
+            if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
+            {
                 Cursor.lockState = CursorLockMode.Locked; // lock cursor
-                receptacle.HideUI();
-                isReceptUIVis = false;
                 HideUI();
                 SetIsUiVisible(false);
             }
+            else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
+            {
+                Cursor.lockState = CursorLockMode.None; // unlock cursor
+                ShowUI();
+                SetIsUiVisible(true);
+            }
+
+            // Toggle Receptacle UI with E
+            if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
+            {
+                if (isReceptUIVis == false)
+                {
+                    Cursor.lockState = CursorLockMode.None; // unlock cursor
+                    receptacle.Interact();
+                    isReceptUIVis = true;
+                    if (GetIsUiVisible() == false)
+                    {
+                        ShowUI();
+                        SetIsUiVisible(true);
+
+                    }
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                    receptacle.HideUI();
+                    isReceptUIVis = false;
+                    HideUI();
+                    SetIsUiVisible(false);
+                }
+            }
+
+            //----------------------------------------------------------Player Attack----------------------------------------------------//
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                PerformAttack();
+            }
+
         }
 
+
+
+    }
+
+    public void PerformAttack()
+    {
+        weapon.Attack();
     }
 
     private void OnCollisionEnter(Collision collision)
