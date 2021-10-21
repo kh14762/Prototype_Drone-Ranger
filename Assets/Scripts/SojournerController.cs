@@ -104,32 +104,7 @@ public class SojournerController : MonoBehaviour
         {
             sojournerSpeed = sojournerWalkSpeed;
         }
-
-        // movement
-        verticalInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
-
-        // camera rotation
-        Vector3 forward = sojournerCamera.transform.forward;
-        Vector3 right = sojournerCamera.transform.right;
-        right.y = 0;
-        forward.y = 0;
-        forward.Normalize();
-        right.Normalize();
-
-        // Move Direction
-        Vector3 MoveDirection = forward * verticalInput + right * horizontalInput;
-
-        // Move sojourner
-        sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
-
-        // Rotate sojourner in the direction they are moving
-        if (MoveDirection != new Vector3(0, 0, 0))
-        {
-            transform.rotation = Quaternion.LookRotation(MoveDirection);
-        }
-        
-
+      
         /*// Move Forward or backwards when w or s key is pressed
         transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
         transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
