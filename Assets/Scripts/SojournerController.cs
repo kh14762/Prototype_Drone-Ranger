@@ -37,7 +37,7 @@ public class SojournerController : MonoBehaviour
         for (int i = 0; i < 12; i += 3)
         {
             for (int j = 0; j < 12; j += 3) {
-                ItemWorld.SpawnItemWorld(new Vector3(i, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
+                ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
             }
         }
         //ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
@@ -104,6 +104,30 @@ public class SojournerController : MonoBehaviour
         {
             sojournerSpeed = sojournerWalkSpeed;
         }
+
+        // movement
+        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+
+        // camera rotation
+        Vector3 forward = sojournerCamera.transform.forward;
+        Vector3 right = sojournerCamera.transform.right;
+        right.y = 0;
+        forward.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        // Move Direction
+        Vector3 MoveDirection = forward * verticalInput + right * horizontalInput;
+
+        // Move sojourner
+        sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
+
+        // Rotate sojourner in the direction they are moving
+        if (MoveDirection != new Vector3(0, 0, 0))
+        {
+            transform.rotation = Quaternion.LookRotation(MoveDirection);
+        }
         
 
         /*// Move Forward or backwards when w or s key is pressed
@@ -144,7 +168,6 @@ public class SojournerController : MonoBehaviour
                 {
                     ShowUI();
                     SetIsUiVisible(true);
-                    
                 }
             }
             else
@@ -191,6 +214,14 @@ public class SojournerController : MonoBehaviour
     public bool GetIsUiVisible()
     {
         return isUiVisible;
+    }
+    public void SetIsReceptUIVis(bool isReceptUIVis)
+    {
+        this.isReceptUIVis = isReceptUIVis;
+    }
+    public bool GetIsReceptUIVis()
+    {
+        return isReceptUIVis;
     }
 
     public void ShowUI()
