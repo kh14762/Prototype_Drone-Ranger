@@ -121,7 +121,7 @@ public class Inventory : IItemHolder
         if (draggedItem.IsStackable())
         {
             inventoryItem.amount += draggedItem.amount;
-            
+
             Debug.Log(draggedItem.amount);
             Debug.Log(inventoryItem.amount);
 

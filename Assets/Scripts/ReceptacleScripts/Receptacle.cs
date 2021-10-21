@@ -18,7 +18,6 @@ public class Receptacle : MonoBehaviour, IInteractable
         receptacle_ui.SetInventory(inventory);
         sojourner = GameObject.Find("Sojourner");
         s_controller = sojourner.GetComponent<SojournerController>();
-        Debug.Log(s_controller);
         this.HideUI();
     }
 

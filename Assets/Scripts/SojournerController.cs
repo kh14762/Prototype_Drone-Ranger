@@ -36,7 +36,8 @@ public class SojournerController : MonoBehaviour
         //  Test adding pickup objects to scene
         for (int i = 0; i < 12; i += 3)
         {
-            for (int j = 0; j < 12; j += 3) {
+            for (int j = 0; j < 12; j += 3)
+            {
                 ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
             }
         }
@@ -47,7 +48,6 @@ public class SojournerController : MonoBehaviour
         Physics.gravity *= gravityModifier;
 
         receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
-        Debug.Log(receptacle);
         HideUI();
         SetIsUiVisible(false);
         enableInput = true;
@@ -88,11 +88,10 @@ public class SojournerController : MonoBehaviour
         }
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        
+
 
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed
@@ -104,7 +103,7 @@ public class SojournerController : MonoBehaviour
         {
             sojournerSpeed = sojournerWalkSpeed;
         }
-      
+
         /*// Move Forward or backwards when w or s key is pressed
         transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
         transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class UI_RefiningSystem : MonoBehaviour
 {
-    [SerializeField] public Transform pfIU_Item;
+    [SerializeField] private Transform pfIU_Item;
     private Transform inputSlot;
     private Transform outputSlotTransform;
     private Transform itemContainer;
+    private RefiningSystem refiningSystem;
 
 
     void Start()
@@ -16,14 +17,42 @@ public class UI_RefiningSystem : MonoBehaviour
         outputSlotTransform = transform.Find("OutputSlot");
         itemContainer = transform.Find("ItemContainer");
 
-        ////  Subscrib to on item dropped event
-        //UI_RefiningStationSlot refiningStationSlot = inputSlot.GetComponent<UI_RefiningStationSlot>();
-        //refiningStationSlot.OnItemDropped += UI_RefiningSystem_OnItemDropped;
+        // Subscribe to OnItemDropped Event for inputSlot
+        inputSlot.GetComponent<UI_RefSlot>().OnItemDropped += UI_RefiningSystem_OnItemDropped;
 
-        //CreateItemInput(new Item { itemType = Item.ItemType.Cube });
-        //CreateItemOutput(new Item { itemType = Item.ItemType.MetalScrap });
     }
 
+    public void SetRefiningSystem(RefiningSystem refiningSystem)
+    {
+        this.refiningSystem = refiningSystem;
+        refiningSystem.OnChange += RefiningSystem_OnChange;
+        UpdateUI();
+    }
+
+    private void RefiningSystem_OnChange(object sender, System.EventArgs e)
+    {
+        UpdateUI();
+    }
+
+    private void UI_RefiningSystem_OnItemDropped(object sender, UI_RefSlot.OnItemDroppedEventArgs e)
+    {
+        Debug.Log(e.item);
+        refiningSystem.TryAddItem(e.item);
+    }
+    private void UpdateUI()
+    {
+        foreach(Transform child in itemContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //  Ask Refining System if it is empty
+        //  If not create item
+        if (!refiningSystem.IsEmpty())
+        {
+            CreateItemInput(refiningSystem.GetItem());
+        }
+    }
 
     private void CreateItemInput(Item item)
     {
@@ -40,4 +69,6 @@ public class UI_RefiningSystem : MonoBehaviour
         itemRectTransform.anchoredPosition = outputSlotTransform.GetComponent<RectTransform>().anchoredPosition;
         itemTransform.GetComponent<UI_Item>().SetItem(item);
     }
+
+    
 }
