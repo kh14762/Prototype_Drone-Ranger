@@ -8,6 +8,7 @@ public class Item
 {
     public enum ItemType
     {
+        None,
         Sword,
         HealthPotion,
         ManaPotion,
@@ -17,6 +18,9 @@ public class Item
         MetalScrap,
         PolymerScrap,
         SiliconScrap,
+        RefinedMetal,
+        RefinedPolymer,
+        RefinedSilicon,
     }
 
     public ItemType itemType;
@@ -68,6 +72,9 @@ public class Item
             case ItemType.MetalScrap:       return ItemAssets.Instance.MetalScrapSprite;
             case ItemType.PolymerScrap:     return ItemAssets.Instance.PolymerScrapSprite;
             case ItemType.SiliconScrap:     return ItemAssets.Instance.SiliconScrapSprite;
+            case ItemType.RefinedMetal:     return ItemAssets.Instance.RefinedMetalSprite;
+            case ItemType.RefinedSilicon:   return ItemAssets.Instance.RefinedSiliconSprite;
+            case ItemType.RefinedPolymer:   return ItemAssets.Instance.RefinedPolymerSprite;
         }
     }
 
@@ -95,7 +102,11 @@ public class Item
             case ItemType.Cube:
             case ItemType.MetalScrap: 
             case ItemType.PolymerScrap: 
-            case ItemType.SiliconScrap:      
+            case ItemType.SiliconScrap:
+            case ItemType.RefinedMetal:
+            case ItemType.RefinedPolymer:
+            case ItemType.RefinedSilicon:
+
                 return true;
             case ItemType.Sword:
             case ItemType.Medkit:

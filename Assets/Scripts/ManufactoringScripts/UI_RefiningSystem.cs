@@ -41,16 +41,22 @@ public class UI_RefiningSystem : MonoBehaviour
     }
     private void UpdateUI()
     {
+        //  Clear old items
         foreach(Transform child in itemContainer)
         {
             Destroy(child.gameObject);
         }
 
         //  Ask Refining System if it is empty
-        //  If not create item
+        //  If not spawn items
         if (!refiningSystem.IsEmpty())
         {
             CreateItemInput(refiningSystem.GetItem());
+        }
+
+        if (refiningSystem.GetOutputItem() != null)
+        {
+            CreateItemOutput(refiningSystem.GetOutputItem());
         }
     }
 

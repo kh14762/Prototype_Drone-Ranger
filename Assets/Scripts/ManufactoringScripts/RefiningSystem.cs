@@ -6,6 +6,8 @@ using UnityEngine;
 public class RefiningSystem : MonoBehaviour, IItemHolder
 {
     private Item item;
+    private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
+    private Item outputItem;
 
     public event EventHandler OnChange;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
@@ -13,6 +15,22 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     void Start()
     {
         uiRefiningSystem.SetRefiningSystem(this);
+
+        recipeDictionary = new Dictionary<Item.ItemType, Item.ItemType>();
+        //  RefinedMetal
+        Item.ItemType refinedMetalRecipe;
+        refinedMetalRecipe = Item.ItemType.MetalScrap;
+        recipeDictionary[Item.ItemType.RefinedMetal] = refinedMetalRecipe;
+
+        //  RefinedPolymer
+        Item.ItemType refinedPolymerRecipe;
+        refinedPolymerRecipe = Item.ItemType.PolymerScrap;
+        recipeDictionary[Item.ItemType.RefinedPolymer] = refinedPolymerRecipe;
+
+        //  RefinedSilicon
+        Item.ItemType refinedSiliconRecipe;
+        refinedSiliconRecipe = Item.ItemType.SiliconScrap;
+        recipeDictionary[Item.ItemType.RefinedSilicon] = refinedSiliconRecipe;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,6 +68,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             item.SetItemHolder(this);
         }
         this.item = item;
+        CreateOutput();
         OnChange?.Invoke(this, EventArgs.Empty);
     }
 
@@ -61,14 +80,21 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
 
     public void DecreaseItemAmount()
     {
-        GetItem().amount--;
-        OnChange?.Invoke(this, EventArgs.Empty);
+        if (GetItem() != null)
+        {
+            GetItem().amount--;
+            if (GetItem().amount == 0)
+            {
+                RemoveItem();
+            }            
+            OnChange?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void RemoveItem()
     {
         SetItem(null);
-    } 
+    }
 
     public bool TryAddItem(Item item)
     {
@@ -76,13 +102,15 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         {
             SetItem(item);
             return true;
-        } else
+        }
+        else
         {
             if (item.itemType == GetItem().itemType)
             {
                 IncreaseItemAmount();
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -91,7 +119,21 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
 
     public void RemoveItem(Item item)
     {
-        throw new NotImplementedException();
+        if (item == outputItem)
+        {
+            //  Remove output Item
+            ConsumeRecipeItems();
+            CreateOutput();
+            OnChange?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            //  Remove Item from Input Slot
+            if (GetItem() == item)
+            {
+                RemoveItem();
+            }
+        }
     }
 
     public void AddItem(Item item)
@@ -102,5 +144,52 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     public bool CanAddItem()
     {
         throw new NotImplementedException();
+    }
+
+    private Item.ItemType GetRecipeOutput()
+    {
+        foreach (Item.ItemType recipeItemType in recipeDictionary.Keys)
+        {
+            Item.ItemType recipe = recipeDictionary[recipeItemType];
+
+            bool completeRecipe = true;
+            if (recipe != Item.ItemType.None)
+            {
+                if (IsEmpty() || GetItem().itemType != recipe)
+                {
+                    //  empty input slot or different itemType placed in input slot
+                    completeRecipe = false;
+                }
+            }
+            if (completeRecipe)
+            {
+                return recipeItemType;
+            }
+        }
+        return Item.ItemType.None;
+    }
+
+    private void CreateOutput()
+    {
+        Item.ItemType recipeOutput = GetRecipeOutput();
+        if (recipeOutput == Item.ItemType.None)
+        {
+            outputItem = null;
+        }
+        else
+        {
+            outputItem = new Item { itemType = recipeOutput , amount = 1 };
+            outputItem.SetItemHolder(this);
+        }
+    }
+
+    public Item GetOutputItem()
+    {
+        return outputItem;
+    }
+
+    public void ConsumeRecipeItems()
+    {
+        DecreaseItemAmount();
     }
 }
