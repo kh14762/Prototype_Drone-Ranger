@@ -5,20 +5,25 @@ using UnityEngine;
 public class UI_RefiningSystem : MonoBehaviour
 {
     [SerializeField] private Transform pfIU_Item;
-    private Transform inputSlot;
+    private Transform inputSlotTransform;
     private Transform outputSlotTransform;
     private Transform itemContainer;
     private RefiningSystem refiningSystem;
+    private UI_RefSlot uiRefSlot;
+    //  Test Vars
+    private int routineCount = 0;
+    int UpdateUIcount = 0;
 
 
     void Start()
     {
-        inputSlot = transform.Find("InputSlot");
+        inputSlotTransform = transform.Find("InputSlot");
         outputSlotTransform = transform.Find("OutputSlot");
         itemContainer = transform.Find("ItemContainer");
+        uiRefSlot = inputSlotTransform.GetComponent<UI_RefSlot>();
 
         // Subscribe to OnItemDropped Event for inputSlot
-        inputSlot.GetComponent<UI_RefSlot>().OnItemDropped += UI_RefiningSystem_OnItemDropped;
+        uiRefSlot.OnItemDropped += UI_RefiningSystem_OnItemDropped;
 
     }
 
@@ -51,7 +56,8 @@ public class UI_RefiningSystem : MonoBehaviour
         //  If not spawn items
         if (!refiningSystem.IsEmpty())
         {
-            CreateItemInput(refiningSystem.GetItem());
+            Item item = refiningSystem.GetItem();
+            CreateItemInput(item);
         }
 
         if (refiningSystem.GetOutputItem() != null)
@@ -60,21 +66,47 @@ public class UI_RefiningSystem : MonoBehaviour
         }
     }
 
+    IEnumerator RefiningCountdownRoutine()
+    {
+        //  Check if input slot is null
+        if ((refiningSystem.GetItem() != null))
+        {
+            yield return new WaitForSeconds(3);
+            refiningSystem.DecreaseItemAmount();
+            CreateItemOutput(refiningSystem.GetOutputItem());
+            routineCount++;
+            Debug.Log("Ran CountdownRoutine: " + routineCount + " times");
+        }
+    }
+
     private void CreateItemInput(Item item)
     {
         Transform uiItemTransform = Instantiate(pfIU_Item, itemContainer);
         RectTransform itemRectTransform = uiItemTransform.GetComponent<RectTransform>();
-        itemRectTransform.anchoredPosition = inputSlot.GetComponent<RectTransform>().anchoredPosition;
+        itemRectTransform.anchoredPosition = inputSlotTransform.GetComponent<RectTransform>().anchoredPosition;
         uiItemTransform.GetComponent<UI_Item>().SetItem(item);
+
+
+        UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
+        //  Fires when object is dropped ontop of another
+        uiItem.SetOnDropAction(() =>
+        {
+            Item draggedItem = UI_ItemDrag.Instance.GetItem();
+            //  If both the items are the same merge
+            if (item.ToString() == draggedItem.ToString())
+            {
+                refiningSystem.AddItemMergeAmount(item, draggedItem);
+                draggedItem.RemoveFromItemHolder();
+            }
+        });
     }
 
     private void CreateItemOutput(Item item)
-    {
+    { 
         Transform itemTransform = Instantiate(pfIU_Item, itemContainer);
         RectTransform itemRectTransform = itemTransform.GetComponent<RectTransform>();
         itemRectTransform.anchoredPosition = outputSlotTransform.GetComponent<RectTransform>().anchoredPosition;
         itemTransform.GetComponent<UI_Item>().SetItem(item);
     }
 
-    
 }

@@ -8,6 +8,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     private Item item;
     private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
     private Item outputItem;
+    private bool itemInSlot = false;
 
     public event EventHandler OnChange;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
@@ -59,19 +60,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         return item;
     }
-
-    public void SetItem(Item item)
-    {
-        if (item != null)
-        {
-            item.RemoveFromItemHolder();
-            item.SetItemHolder(this);
-        }
-        this.item = item;
-        CreateOutput();
-        OnChange?.Invoke(this, EventArgs.Empty);
-    }
-
     public void IncreaseItemAmount()
     {
         GetItem().amount++;
@@ -91,11 +79,25 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         }
     }
 
+    public void DecreaseOutputItemAmount()
+    {
+        if (GetOutputItem() != null)
+        {
+            GetOutputItem().amount--;
+            if (GetOutputItem().amount == 0)
+            {
+                RemoveItem();
+            }
+            OnChange?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     public void RemoveItem()
     {
         SetItem(null);
     }
 
+    //  This is called when Item is dropped on UI RefiningSystem
     public bool TryAddItem(Item item)
     {
         if (IsEmpty())
@@ -117,12 +119,14 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         }
     }
 
+    //  Triggered when ever the user removes an item from the output slot
     public void RemoveItem(Item item)
     {
+        itemInSlot = false;
         if (item == outputItem)
         {
             //  Remove output Item
-            ConsumeRecipeItems();
+            DecreaseItemAmount();
             CreateOutput();
             OnChange?.Invoke(this, EventArgs.Empty);
         }
@@ -133,6 +137,56 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             {
                 RemoveItem();
             }
+        }
+    }
+
+    public void SetItem(Item item)
+    {
+        itemInSlot = true;
+        if (item != null)
+        {
+            item.RemoveFromItemHolder();
+            item.SetItemHolder(this);
+        }
+        this.item = item;
+        RefineAllInputMaterials();
+        OnChange?.Invoke(this, EventArgs.Empty);
+    }
+
+    //  Trigger in SetItem()
+    //  Should immediately start when an item is placed in the holder
+    public void RefineAllInputMaterials()
+    {
+        //Wait for a specified amount of time
+        StartCoroutine(RefiningCountdown());
+    }
+
+    IEnumerator RefiningCountdown()
+    {
+        //for (int i = item.amount; i > 0; i--)
+        //  check if item in slot is null
+        if (item == null)
+        {
+            itemInSlot = false;
+        }
+        while(itemInSlot)
+        {
+            yield return new WaitForSeconds(3);
+            DecreaseItemAmount(); //Input Item
+            if (outputItem == null)
+            {
+                Debug.Log("Create Output");
+                CreateOutput();
+
+            } else
+            {
+                //  Add to output item
+                //  check if input item recipe matches output item.
+             
+                outputItem.amount++;
+                Debug.Log("Added Output");
+            }
+            OnChange.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -169,6 +223,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         return Item.ItemType.None;
     }
 
+    //  This function gets the corresponding item output for the input item
+    //  Creates output item and sets it in the holder
     private void CreateOutput()
     {
         Item.ItemType recipeOutput = GetRecipeOutput();
@@ -178,8 +234,9 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         }
         else
         {
-            outputItem = new Item { itemType = recipeOutput , amount = 1 };
-            outputItem.SetItemHolder(this);
+         outputItem = new Item { itemType = recipeOutput , amount = 1 };
+         outputItem.SetItemHolder(this);
+
         }
     }
 
@@ -188,8 +245,20 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         return outputItem;
     }
 
-    public void ConsumeRecipeItems()
+    public void SetOutPutItem(Item outputItem)
     {
-        DecreaseItemAmount();
+        this.outputItem = outputItem;
+    }
+
+    public void AddItemMergeAmount(Item slotItem, Item draggedItem)
+    {
+        if (draggedItem.IsStackable())
+        {
+            Debug.Log("Hello from AddItemMergeAmount()");
+            slotItem.amount += draggedItem.amount;
+
+            //draggedItem.SetItemHolder(this);
+        }
+        OnChange.Invoke(this, EventArgs.Empty);
     }
 }
