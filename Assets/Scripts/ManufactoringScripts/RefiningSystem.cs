@@ -45,7 +45,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
 
         //  Progress Bar system
         isRefining = false;
-        refiningTime = 5;
+        refiningTime = 2;
         progressTime = 0;
     }
 
@@ -168,8 +168,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             if (GetItem() == item)
             {
                 StopCoroutine(refiningCoroutine);
-                RemoveItem();
-                isRefining = false;
+                RemoveItem(); 
+                isRefining = false;//stops the progress bar and sets it to zero
                 OnChange?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -183,7 +183,10 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             item.SetItemHolder(this);
         }
         this.item = item;
+        //  check if input item recipe matches output item.
+        //  if recipe of input item matches output item
         RefineAllInputMaterials();
+        //  else dont do anything
         OnChange?.Invoke(this, EventArgs.Empty);
     }
 
@@ -200,18 +203,13 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         for (int i = item.amount; i > 0; i--)
         {
-            //  check if item in slot is null
-            if (item == null)
-            {
-            }
-            // set isRefining to true
+            //  check if input item recipe matches output item.
+            //  if recipe of input item matches output item
             isRefining = true;
-            Debug.Log(isRefining);
             yield return new WaitForSeconds(refiningTime);
-            //set isRefining to false
             isRefining = false;
             progressTime = 0;
-            Debug.Log(isRefining);
+
             DecreaseItemAmount(); //Input Item
             if (outputItem == null)
             {
@@ -222,8 +220,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             else
             {
                 //  Add to output item
-                //  check if input item recipe matches output item.
-
                 outputItem.amount++;
                 Debug.Log("Added Output");
             }
