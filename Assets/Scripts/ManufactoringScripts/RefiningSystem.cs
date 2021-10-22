@@ -8,7 +8,13 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     private Item item;
     private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
     private Item outputItem;
-    private bool itemInSlot = false;
+
+    Coroutine refiningCoroutine;
+    public ProgressBar progressBar;
+    private int refiningTime;
+    private float progressTime;
+    private bool isRefining;
+
 
     public event EventHandler OnChange;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
@@ -16,6 +22,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     void Start()
     {
         uiRefiningSystem.SetRefiningSystem(this);
+
+        //-------------------------------------------------------------Recipes-------------------------------------------------------------//
 
         recipeDictionary = new Dictionary<Item.ItemType, Item.ItemType>();
         //  RefinedMetal
@@ -32,6 +40,27 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         Item.ItemType refinedSiliconRecipe;
         refinedSiliconRecipe = Item.ItemType.SiliconScrap;
         recipeDictionary[Item.ItemType.RefinedSilicon] = refinedSiliconRecipe;
+
+        //---------------------------------------------------End of Recipes---------------------------------------------------------------//
+
+        //  Progress Bar system
+        isRefining = false;
+        refiningTime = 5;
+        progressTime = 0;
+    }
+
+    void Update()
+    {
+        if (isRefining == true)
+        {
+            //  start countdown
+            progressTime += Time.deltaTime;
+            progressBar.SetTime(progressTime / (float)refiningTime);
+        } else
+        {
+            progressTime = 0;
+            progressBar.SetTime(progressTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,14 +97,19 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
 
     public void DecreaseItemAmount()
     {
+        Debug.Log("hello from DecreaseItemAmount()");
         if (GetItem() != null)
         {
             GetItem().amount--;
             if (GetItem().amount == 0)
             {
                 RemoveItem();
-            }            
+            }
             OnChange?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            Debug.Log("Im null");
         }
     }
 
@@ -109,7 +143,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         {
             if (item.itemType == GetItem().itemType)
             {
-                IncreaseItemAmount();
+                //IncreaseItemAmount();
                 return true;
             }
             else
@@ -122,12 +156,10 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     //  Triggered when ever the user removes an item from the output slot
     public void RemoveItem(Item item)
     {
-        itemInSlot = false;
         if (item == outputItem)
         {
             //  Remove output Item
-            DecreaseItemAmount();
-            CreateOutput();
+            SetOutPutItem(null);
             OnChange?.Invoke(this, EventArgs.Empty);
         }
         else
@@ -135,14 +167,16 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             //  Remove Item from Input Slot
             if (GetItem() == item)
             {
+                StopCoroutine(refiningCoroutine);
                 RemoveItem();
+                isRefining = false;
+                OnChange?.Invoke(this, EventArgs.Empty);
             }
         }
     }
 
     public void SetItem(Item item)
     {
-        itemInSlot = true;
         if (item != null)
         {
             item.RemoveFromItemHolder();
@@ -158,36 +192,45 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     public void RefineAllInputMaterials()
     {
         //Wait for a specified amount of time
-        StartCoroutine(RefiningCountdown());
+
+        refiningCoroutine = StartCoroutine(RefiningCoroutine());
     }
 
-    IEnumerator RefiningCountdown()
+    IEnumerator RefiningCoroutine()
     {
-        //for (int i = item.amount; i > 0; i--)
-        //  check if item in slot is null
-        if (item == null)
+        for (int i = item.amount; i > 0; i--)
         {
-            itemInSlot = false;
-        }
-        while(itemInSlot)
-        {
-            yield return new WaitForSeconds(3);
+            //  check if item in slot is null
+            if (item == null)
+            {
+            }
+            // set isRefining to true
+            isRefining = true;
+            Debug.Log(isRefining);
+            yield return new WaitForSeconds(refiningTime);
+            //set isRefining to false
+            isRefining = false;
+            progressTime = 0;
+            Debug.Log(isRefining);
             DecreaseItemAmount(); //Input Item
             if (outputItem == null)
             {
                 Debug.Log("Create Output");
                 CreateOutput();
 
-            } else
+            }
+            else
             {
                 //  Add to output item
                 //  check if input item recipe matches output item.
-             
+
                 outputItem.amount++;
                 Debug.Log("Added Output");
             }
             OnChange.Invoke(this, EventArgs.Empty);
         }
+
+
     }
 
     public void AddItem(Item item)
@@ -234,8 +277,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
         }
         else
         {
-         outputItem = new Item { itemType = recipeOutput , amount = 1 };
-         outputItem.SetItemHolder(this);
+            outputItem = new Item { itemType = recipeOutput, amount = 1 };
+            outputItem.SetItemHolder(this);
 
         }
     }
@@ -254,7 +297,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         if (draggedItem.IsStackable())
         {
-            Debug.Log("Hello from AddItemMergeAmount()");
             slotItem.amount += draggedItem.amount;
 
             //draggedItem.SetItemHolder(this);

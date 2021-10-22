@@ -66,19 +66,6 @@ public class UI_RefiningSystem : MonoBehaviour
         }
     }
 
-    IEnumerator RefiningCountdownRoutine()
-    {
-        //  Check if input slot is null
-        if ((refiningSystem.GetItem() != null))
-        {
-            yield return new WaitForSeconds(3);
-            refiningSystem.DecreaseItemAmount();
-            CreateItemOutput(refiningSystem.GetOutputItem());
-            routineCount++;
-            Debug.Log("Ran CountdownRoutine: " + routineCount + " times");
-        }
-    }
-
     private void CreateItemInput(Item item)
     {
         Transform uiItemTransform = Instantiate(pfIU_Item, itemContainer);

@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f279b70a4a0a5241833dacfe9743e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressBar: {fileID: 0}
+  progressBar: {fileID: 1061921626}
   uiRefiningSystem: {fileID: 200998767}
 --- !u!1 &461919790
 GameObject:
@@ -2054,7 +2054,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899556985}
-  m_LocalRotation: {x: 0.12451125, y: 0.0000000305814, z: -0.000000003838135, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451125, y: 0.000000031261823, z: -0.00000000392352, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2189,7 +2189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12451124, y: 0.000000031957626, z: -0.000000004010291, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: 0.000000031954276, z: -0.00000000400987, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 6.21, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.68
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3763,7 +3763,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566408608}
-  m_LocalRotation: {x: 0.10649046, y: 0.0000000225002, z: -0.000000002410301, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649046, y: 0.000000023184127, z: -0.0000000024835483, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4657,7 +4657,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.14253858, y: 0.00000002009278, z: -0.0000000028940867, w: 0.98978925}
+  m_LocalRotation: {x: 0.14253858, y: 0.000000021238261, z: -0.0000000030590472, w: 0.98978925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
