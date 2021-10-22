@@ -13,7 +13,9 @@ public class SojournerController : MonoBehaviour
     public bool isOnGround = true;
     private bool isUiVisible = true;
     private bool isReceptUIVis = false;
+    private bool isRefUIVis = false;
     private Receptacle receptacle;
+    private RefiningSystem refSystem;
 
     private Inventory inventory;
     [SerializeField] private UI_Inventory uiInventory;
@@ -48,6 +50,7 @@ public class SojournerController : MonoBehaviour
         Physics.gravity *= gravityModifier;
 
         receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
+        refSystem = GameObject.Find("RefiningStation").GetComponent<RefiningSystem>(); 
         HideUI();
         SetIsUiVisible(false);
         enableInput = true;
@@ -154,6 +157,29 @@ public class SojournerController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && refSystem.GetIsPlayerColliding() == true)
+        {
+            if (isRefUIVis == false)
+            {
+                Cursor.lockState = CursorLockMode.None; // unlock cursor
+                refSystem.Interact();
+                isRefUIVis = true;
+                if (GetIsUiVisible() == false)
+                {
+                    ShowUI();
+                    SetIsUiVisible(true);
+                }
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                refSystem.HideUI();
+                isRefUIVis = false;
+                HideUI();
+                SetIsUiVisible(false);
+            }
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -196,6 +222,15 @@ public class SojournerController : MonoBehaviour
     public bool GetIsReceptUIVis()
     {
         return isReceptUIVis;
+    }
+
+    public void SetIsRefUIVis(bool isRefUIVis)
+    {
+        this.isRefUIVis = isRefUIVis;
+    }
+    public bool GetIsRefUIVis()
+    {
+        return isRefUIVis;
     }
 
     public void ShowUI()

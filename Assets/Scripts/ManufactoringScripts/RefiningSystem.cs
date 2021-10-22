@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefiningSystem : MonoBehaviour, IItemHolder
+public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
 {
     private Item item;
     private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
@@ -15,9 +15,13 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     private float progressTime;
     private bool isRefining;
 
-
+    //  player collision
+    private bool isPlayerColliding;
     public event EventHandler OnChange;
+    private GameObject sojourner;
+    private SojournerController s_controller;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
+
 
     void Start()
     {
@@ -45,8 +49,13 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
 
         //  Progress Bar system
         isRefining = false;
-        refiningTime = 2;
+        refiningTime = 1;
         progressTime = 0;
+
+        //  Set Sojourner controller
+        sojourner = GameObject.Find("Sojourner");
+        s_controller = sojourner.GetComponent<SojournerController>();
+        this.HideUI();
     }
 
     void Update()
@@ -56,7 +65,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             //  start countdown
             progressTime += Time.deltaTime;
             progressBar.SetTime(progressTime / (float)refiningTime);
-        } else
+        }
+        else
         {
             progressTime = 0;
             progressBar.SetTime(progressTime);
@@ -67,6 +77,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            SetIsPlayerColliding(true);
             Debug.Log("player colliding with Refining Station");
         }
     }
@@ -75,7 +86,16 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            SetIsPlayerColliding(false);
+            if (s_controller.GetIsRefUIVis() == true)
+            {
+                s_controller.HideUI();
+                s_controller.SetIsRefUIVis(false);
+            }
+            s_controller.SetIsRefUIVis(false);
+            s_controller.SetIsUiVisible(false);
             Debug.Log("player no longer with Refining Station");
+            this.HideUI();
         }
     }
 
@@ -168,7 +188,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             if (GetItem() == item)
             {
                 StopCoroutine(refiningCoroutine);
-                RemoveItem(); 
+                RemoveItem();
                 isRefining = false;//stops the progress bar and sets it to zero
                 OnChange?.Invoke(this, EventArgs.Empty);
             }
@@ -203,6 +223,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
     {
         for (int i = item.amount; i > 0; i--)
         {
+
             //  check if input item recipe matches output item.
             //  if recipe of input item matches output item
             isRefining = true;
@@ -225,8 +246,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             }
             OnChange.Invoke(this, EventArgs.Empty);
         }
-
-
     }
 
     public void AddItem(Item item)
@@ -298,5 +317,31 @@ public class RefiningSystem : MonoBehaviour, IItemHolder
             //draggedItem.SetItemHolder(this);
         }
         OnChange.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ShowUI()
+    {
+        uiRefiningSystem.GetCanvasGroup().alpha = 1f;
+        uiRefiningSystem.GetCanvasGroup().blocksRaycasts = true;
+    }
+    public void HideUI()
+    {
+        uiRefiningSystem.GetCanvasGroup().alpha = 0f;
+        uiRefiningSystem.GetCanvasGroup().blocksRaycasts = false;
+    }
+
+    public void SetIsPlayerColliding(bool isPlayerColliding)
+    {
+        this.isPlayerColliding = isPlayerColliding;
+    }
+
+    public bool GetIsPlayerColliding()
+    {
+        return isPlayerColliding;
+    }
+
+    public void Interact()
+    {
+        ShowUI();
     }
 }

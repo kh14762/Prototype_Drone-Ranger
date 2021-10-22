@@ -10,6 +10,7 @@ public class UI_RefiningSystem : MonoBehaviour
     private Transform itemContainer;
     private RefiningSystem refiningSystem;
     private UI_RefSlot uiRefSlot;
+    private CanvasGroup canvasGroup;
     //  Test Vars
     private int routineCount = 0;
     int UpdateUIcount = 0;
@@ -24,6 +25,9 @@ public class UI_RefiningSystem : MonoBehaviour
 
         // Subscribe to OnItemDropped Event for inputSlot
         uiRefSlot.OnItemDropped += UI_RefiningSystem_OnItemDropped;
+
+        //  Set canvas goup var so this UI component can be Toggled
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
 
     }
 
@@ -96,4 +100,8 @@ public class UI_RefiningSystem : MonoBehaviour
         itemTransform.GetComponent<UI_Item>().SetItem(item);
     }
 
+    public CanvasGroup GetCanvasGroup()
+    {
+        return canvasGroup;
+    }
 }

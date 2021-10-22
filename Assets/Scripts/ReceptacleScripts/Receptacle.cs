@@ -81,14 +81,4 @@ public class Receptacle : MonoBehaviour, IInteractable
     {
         return isPlayerColliding;
     }
-    public void SetReceptacleUI(Receptacle_UI receptacle_ui)
-    {
-        this.receptacle_ui = receptacle_ui;
-    }
-
-    public Receptacle_UI GetReceptacleUI()
-    {
-        return receptacle_ui;
-    }
-
 }
