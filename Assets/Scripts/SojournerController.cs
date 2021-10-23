@@ -89,6 +89,13 @@ public class SojournerController : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(MoveDirection);
                 }
+               // else
+               //{
+                    // back always faces the camera, when moving AND when standing still.
+                   // Vector3 lookDir = forward + right;
+                    //transform.rotation = Quaternion.LookRotation(forward);
+                //}
+
             }
         }
         
