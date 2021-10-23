@@ -206,11 +206,11 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         this.item = item;
         //  check if input item recipe matches output item.
         //  if recipe of input item matches output item
-        //Item.ItemType inputItemType = item.itemType;
-        //Debug.Log(inputItemType);
-        // if inputItemType matches output item recipe
-        //Debug.Log(recipeDictionary[]);
-        //Debug.Log(item.itemType);
+        //  Item.ItemType inputItemType = item.itemType;
+        //  Debug.Log(inputItemType);
+        //  if inputItemType matches output item recipe
+        //  Debug.Log(recipeDictionary[]);
+        //  Debug.Log(item.itemType);
         RefineAllInputMaterials();
         //  else dont do anything
         OnChange?.Invoke(this, EventArgs.Empty);
