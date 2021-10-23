@@ -117,7 +117,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
 
     public void DecreaseItemAmount()
     {
-        Debug.Log("hello from DecreaseItemAmount()");
+        //Debug.Log("hello from DecreaseItemAmount()");
         if (GetItem() != null)
         {
             GetItem().amount--;
@@ -129,7 +129,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         }
         else
         {
-            Debug.Log("Im null");
+            //??
+            //Debug.Log("Im null");
         }
     }
 
@@ -205,6 +206,11 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         this.item = item;
         //  check if input item recipe matches output item.
         //  if recipe of input item matches output item
+        //Item.ItemType inputItemType = item.itemType;
+        //Debug.Log(inputItemType);
+        // if inputItemType matches output item recipe
+        //Debug.Log(recipeDictionary[]);
+        //Debug.Log(item.itemType);
         RefineAllInputMaterials();
         //  else dont do anything
         OnChange?.Invoke(this, EventArgs.Empty);
@@ -221,11 +227,12 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
 
     IEnumerator RefiningCoroutine()
     {
-        for (int i = item.amount; i > 0; i--)
-        {
+        //  Check if the current input Item Recipe matches the Item Recipe in the output slot
+        // if the output item is equal to the input item recipe output.
 
-            //  check if input item recipe matches output item.
-            //  if recipe of input item matches output item
+        // while item is in slot
+        while(item != null)
+        {
             isRefining = true;
             yield return new WaitForSeconds(refiningTime);
             isRefining = false;
@@ -236,14 +243,13 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
             {
                 Debug.Log("Create Output");
                 CreateOutput();
-
             }
             else
             {
                 //  Add to output item
                 outputItem.amount++;
                 Debug.Log("Added Output");
-            }
+            } 
             OnChange.Invoke(this, EventArgs.Empty);
         }
     }
@@ -313,7 +319,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         if (draggedItem.IsStackable())
         {
             slotItem.amount += draggedItem.amount;
-
             //draggedItem.SetItemHolder(this);
         }
         OnChange.Invoke(this, EventArgs.Empty);

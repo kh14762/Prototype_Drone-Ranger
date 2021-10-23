@@ -45,7 +45,7 @@ public class UI_RefiningSystem : MonoBehaviour
 
     private void UI_RefiningSystem_OnItemDropped(object sender, UI_RefSlot.OnItemDroppedEventArgs e)
     {
-        Debug.Log(e.item);
+        //  Debug.Log(e.item);
         refiningSystem.TryAddItem(e.item);
     }
     private void UpdateUI()
