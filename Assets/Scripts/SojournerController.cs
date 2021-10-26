@@ -13,7 +13,9 @@ public class SojournerController : MonoBehaviour
     public bool isOnGround = true;
     private bool isUiVisible = true;
     private bool isReceptUIVis = false;
+    private bool isRefUIVis = false;
     private Receptacle receptacle;
+    private RefiningSystem refSystem;
 
     private Inventory inventory;
     [SerializeField] private UI_Inventory uiInventory;
@@ -36,18 +38,16 @@ public class SojournerController : MonoBehaviour
         //  Test adding pickup objects to scene
         for (int i = 0; i < 12; i += 3)
         {
-            for (int j = 0; j < 12; j += 3) {
+            for (int j = 0; j < 12; j += 3)
+            {
                 ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
             }
         }
-        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(3, 1, 0), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, -3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
         receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
-        Debug.Log(receptacle);
+        refSystem = GameObject.Find("RefiningStation").GetComponent<RefiningSystem>(); 
         HideUI();
         SetIsUiVisible(false);
         enableInput = true;
@@ -91,7 +91,7 @@ public class SojournerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         //----------------------------------------------------------Player Input----------------------------------------------------//
         // sprint speed
@@ -103,7 +103,6 @@ public class SojournerController : MonoBehaviour
         {
             sojournerSpeed = sojournerWalkSpeed;
         }
-        
         /*// Move Forward or backwards when w or s key is pressed
         transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
         transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
@@ -154,6 +153,29 @@ public class SojournerController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.E) && refSystem.GetIsPlayerColliding() == true)
+        {
+            if (isRefUIVis == false)
+            {
+                Cursor.lockState = CursorLockMode.None; // unlock cursor
+                refSystem.Interact();
+                isRefUIVis = true;
+                if (GetIsUiVisible() == false)
+                {
+                    ShowUI();
+                    SetIsUiVisible(true);
+                }
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                refSystem.HideUI();
+                isRefUIVis = false;
+                HideUI();
+                SetIsUiVisible(false);
+            }
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -169,6 +191,8 @@ public class SojournerController : MonoBehaviour
             inventory.AddItemMergeAmount(itemWorld.GetItem());
             itemWorld.DestroySelf();
         }
+        //  if the player is in the middle of dragging an item, Hides it to prevent bug
+        UI_ItemDrag.Instance.Hide();
     }
 
     public Vector3 GetPosition()
@@ -196,6 +220,15 @@ public class SojournerController : MonoBehaviour
     public bool GetIsReceptUIVis()
     {
         return isReceptUIVis;
+    }
+
+    public void SetIsRefUIVis(bool isRefUIVis)
+    {
+        this.isRefUIVis = isRefUIVis;
+    }
+    public bool GetIsRefUIVis()
+    {
+        return isRefUIVis;
     }
 
     public void ShowUI()
