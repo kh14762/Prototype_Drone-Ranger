@@ -186,13 +186,14 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         else
         {
             //  Remove Item from Input Slot
-            if (GetItem() == item)
+            if (refiningCoroutine != null)
             {
                 StopCoroutine(refiningCoroutine);
-                RemoveItem();
-                isRefining = false;//stops the progress bar and sets it to zero
-                OnChange?.Invoke(this, EventArgs.Empty);
             }
+            RemoveItem();
+            isRefining = false;//stops the progress bar and sets it to zero
+            OnChange?.Invoke(this, EventArgs.Empty);
+
         }
     }
 
@@ -204,15 +205,8 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
             item.SetItemHolder(this);
         }
         this.item = item;
-        //  check if input item recipe matches output item.
-        //  if recipe of input item matches output item
-        //  Item.ItemType inputItemType = item.itemType;
-        //  Debug.Log(inputItemType);
-        //  if inputItemType matches output item recipe
-        //  Debug.Log(recipeDictionary[]);
-        //  Debug.Log(item.itemType);
         RefineAllInputMaterials();
-        //  else dont do anything
+
         OnChange?.Invoke(this, EventArgs.Empty);
     }
 
@@ -220,36 +214,42 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
     //  Should immediately start when an item is placed in the holder
     public void RefineAllInputMaterials()
     {
-        //Wait for a specified amount of time
-
+        //  Store coroutine in a variable, can use this var to stop the coroutine
         refiningCoroutine = StartCoroutine(RefiningCoroutine());
     }
 
     IEnumerator RefiningCoroutine()
     {
-        //  Check if the current input Item Recipe matches the Item Recipe in the output slot
-        // if the output item is equal to the input item recipe output.
-
-        // while item is in slot
-        while(item != null)
+        //  get the predicted item type
+        Item.ItemType predictedOutput = GetRecipeOutput();
+        Debug.Log(predictedOutput);
+        while (item != null)
         {
+            if (outputItem != null)
+            {
+                //  if predicted output is not equal to the output item type then break from loop
+                if (predictedOutput != outputItem.itemType)
+                {
+                    break;
+                }
+            }
             isRefining = true;
             yield return new WaitForSeconds(refiningTime);
             isRefining = false;
             progressTime = 0;
 
-            DecreaseItemAmount(); //Input Item
             if (outputItem == null)
             {
-                Debug.Log("Create Output");
                 CreateOutput();
             }
             else
             {
                 //  Add to output item
                 outputItem.amount++;
-                Debug.Log("Added Output");
-            } 
+            }
+            DecreaseItemAmount(); //Input Item
+            //  if the player is in the middle of dragging an item, Hides it to prevent bug  
+            UI_ItemDrag.Instance.Hide();
             OnChange.Invoke(this, EventArgs.Empty);
         }
     }

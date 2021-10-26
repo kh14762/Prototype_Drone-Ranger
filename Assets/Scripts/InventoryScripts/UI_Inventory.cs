@@ -21,7 +21,7 @@ public class UI_Inventory : MonoBehaviour
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
         itemSlotTemplate.gameObject.SetActive(false);
-        canvasGroup = gameObject.GetComponent<CanvasGroup>();      
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
 
     public void SetSojournerController(SojournerController player)
@@ -56,21 +56,23 @@ public class UI_Inventory : MonoBehaviour
         float itemSlotCellSize = 75f;
         foreach (Inventory.InventorySlot inventorySlot in inventory.GetInventorySlotArray())
         {
-            Item item = inventorySlot.GetItem(); 
+            Item item = inventorySlot.GetItem();
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
-            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
-                Debug.Log("Left Clicked on UI_Inventory");    
+            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
+            {
+                Debug.Log("Left Clicked on UI_Inventory");
             };
-            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () => {
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () =>
+            {
                 Debug.Log("Right Clicked on UI_Inventory");
             };
 
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
 
-            
-                // Not Empty, has Item
+
+            // Not Empty, has Item
             if (!inventorySlot.IsEmpty())
             {
                 Transform uiItemTransform = Instantiate(pfUI_Item, itemSlotContainer);
@@ -86,13 +88,13 @@ public class UI_Inventory : MonoBehaviour
                     Debug.Log("Dropped on ui_Item!");
                     //  Check if item is stackable
                     Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;                   
+                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;
                     Debug.Log(draggedItem.amount);
                     if (tmpInventorySlot.GetItem().ToString() == draggedItem.ToString())
                     {
                         draggedItem.RemoveFromItemHolder();
                         inventory.AddItemMergeAmount(item, draggedItem, tmpInventorySlot);
-                    } 
+                    }
                 });
             }
 
@@ -100,10 +102,15 @@ public class UI_Inventory : MonoBehaviour
             Inventory.InventorySlot tmpInventorySlot = inventorySlot;
             uiItemSlot.SetOnDropAction(() =>
             {
-                // Dropped on this UI Item Slot
-                Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                draggedItem.RemoveFromItemHolder();
-                inventory.AddItem(draggedItem, tmpInventorySlot);
+                //  check if item slot is empty or not
+                //  this is to prevent unintended behavior: filling an already occupied slot
+                if (tmpInventorySlot.IsEmpty())
+                {
+                    // Dropped on this UI Item Slot
+                    Item draggedItem = UI_ItemDrag.Instance.GetItem();
+                    draggedItem.RemoveFromItemHolder();
+                    inventory.AddItem(draggedItem, tmpInventorySlot);
+                }
             });
 
             x++;
@@ -113,7 +120,7 @@ public class UI_Inventory : MonoBehaviour
                 y++;
             }
 
-            
+
         }
     }
 

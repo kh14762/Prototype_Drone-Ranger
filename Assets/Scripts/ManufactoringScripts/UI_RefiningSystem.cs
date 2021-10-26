@@ -11,9 +11,6 @@ public class UI_RefiningSystem : MonoBehaviour
     private RefiningSystem refiningSystem;
     private UI_RefSlot uiRefSlot;
     private CanvasGroup canvasGroup;
-    //  Test Vars
-    private int routineCount = 0;
-    int UpdateUIcount = 0;
 
 
     void Start()

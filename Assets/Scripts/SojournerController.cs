@@ -43,9 +43,6 @@ public class SojournerController : MonoBehaviour
                 ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
             }
         }
-        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, 3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(3, 1, 0), new Item { itemType = Item.ItemType.Cube, amount = 1 });
-        //ItemWorld.SpawnItemWorld(new Vector3(0, 1, -3), new Item { itemType = Item.ItemType.Cube, amount = 1 });
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
@@ -195,6 +192,8 @@ public class SojournerController : MonoBehaviour
             inventory.AddItemMergeAmount(itemWorld.GetItem());
             itemWorld.DestroySelf();
         }
+        //  if the player is in the middle of dragging an item, Hides it to prevent bug
+        UI_ItemDrag.Instance.Hide();
     }
 
     public Vector3 GetPosition()
