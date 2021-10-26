@@ -36,13 +36,13 @@ public class SojournerController : MonoBehaviour
         uiInventory.SetInventory(inventory);
 
         //  Test adding pickup objects to scene
-        for (int i = 0; i < 12; i += 3)
-        {
-            for (int j = 0; j < 12; j += 3)
-            {
-                ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
-            }
-        }
+        //for (int i = 0; i < 12; i += 3)
+        //{
+        //    for (int j = 0; j < 12; j += 3)
+        //    {
+        //        ItemWorld.SpawnItemWorld(new Vector3(i + 10, 1.25f, j), new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
+        //    }
+        //}
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
