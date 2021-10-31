@@ -8,6 +8,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
     private Item item;
     private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
     private Item outputItem;
+    public event EventHandler OnChange;
 
     Coroutine refiningCoroutine;
     public ProgressBar progressBar;
@@ -17,7 +18,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
 
     //  player collision
     private bool isPlayerColliding;
-    public event EventHandler OnChange;
     private GameObject sojourner;
     private SojournerController s_controller;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;

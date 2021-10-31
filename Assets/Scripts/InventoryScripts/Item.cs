@@ -9,12 +9,17 @@ public class Item
     public enum ItemType
     {
         None,
+        //  scrap
         MetalScrap,
         PolymerScrap,
         SiliconScrap,
+        //  refined
         RefinedMetal,
         RefinedPolymer,
         RefinedSilicon,
+        //  printer components
+        PawnDroneBody,
+        PawnDroneLeg,
     }
 
     public ItemType itemType;
