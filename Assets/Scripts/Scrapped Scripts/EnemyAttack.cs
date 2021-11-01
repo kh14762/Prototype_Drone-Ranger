@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public Spear weapon;
+    public Weapon weapon;
     private bool allowAttack;
     private float attackCooldown = 3;
 

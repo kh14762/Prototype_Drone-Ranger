@@ -7,7 +7,8 @@ public class SojournerController : MonoBehaviour
     public Transform sojournerCamera;
     private Rigidbody sojournerRigidBody;
     public GameManager gameManager;
-    public Spear weapon;
+    public PlayerStats playerStats;
+
     public float jumpForce;
     public float gravityModifier;
     public float verticalInput;
@@ -85,15 +86,15 @@ public class SojournerController : MonoBehaviour
                 sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
 
                 // Rotate sojourner in the direction they are moving
-                if (MoveDirection != new Vector3(0, 0, 0))
+                /*if (MoveDirection != new Vector3(0, 0, 0))
                 {
                     transform.rotation = Quaternion.LookRotation(MoveDirection);
-                }
+                }*/
                // else
                //{
                     // back always faces the camera, when moving AND when standing still.
-                   // Vector3 lookDir = forward + right;
-                    //transform.rotation = Quaternion.LookRotation(forward);
+                   
+                    transform.rotation = Quaternion.LookRotation(forward);
                 //}
 
             }
@@ -109,9 +110,10 @@ public class SojournerController : MonoBehaviour
         {
             //----------------------------------------------------------Player Input----------------------------------------------------//
             // sprint speed
-            if (Input.GetKey(KeyCode.LeftShift) && isOnGround)
+            if (Input.GetKey(KeyCode.LeftShift) && isOnGround && playerStats.currentStamina > 0)
             {
                 sojournerSpeed = sojournerSprintSpeed;
+                
             }
             else
             {
@@ -170,11 +172,7 @@ public class SojournerController : MonoBehaviour
                 }
             }
 
-            //----------------------------------------------------------Player Attack----------------------------------------------------//
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                PerformAttack();
-            }
+            
 
         }
 
@@ -182,10 +180,6 @@ public class SojournerController : MonoBehaviour
 
     }
 
-    public void PerformAttack()
-    {
-        weapon.Attack();
-    }
 
     private void OnCollisionEnter(Collision collision)
     {

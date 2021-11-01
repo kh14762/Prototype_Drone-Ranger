@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     private Animator animator;
 
@@ -16,5 +16,5 @@ public class Spear : MonoBehaviour
     {
         animator.SetTrigger("Attack");
     }
-    
+
 }
