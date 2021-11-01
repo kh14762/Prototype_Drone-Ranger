@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThreeDPrinter : MonoBehaviour
+public class Printer : MonoBehaviour
 {
     private Item item;
     private List<Item> partList;
