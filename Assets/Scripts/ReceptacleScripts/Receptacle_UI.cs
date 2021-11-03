@@ -117,14 +117,4 @@ public class Receptacle_UI : MonoBehaviour
     {
         return canvasGroup;
     }
-
-    public void SetCanvasGroup(CanvasGroup canvasGroup)
-    {
-        this.canvasGroup = canvasGroup;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
