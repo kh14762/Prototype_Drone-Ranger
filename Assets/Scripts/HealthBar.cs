@@ -21,5 +21,15 @@ public class HealthBar : MonoBehaviour
         healthSlider.value = health;
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
