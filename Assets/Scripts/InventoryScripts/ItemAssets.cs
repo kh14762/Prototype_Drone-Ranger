@@ -21,7 +21,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite PolymerScrapSprite;
     public Sprite SiliconScrapSprite;
     public Sprite RefinedMetalSprite;
-    public Sprite RefinedSiliconSprite;
     public Sprite RefinedPolymerSprite;
-
+    public Sprite RefinedSiliconSprite;
 }
