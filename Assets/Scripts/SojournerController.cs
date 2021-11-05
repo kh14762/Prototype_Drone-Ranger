@@ -129,8 +129,9 @@ public class SojournerController : MonoBehaviour
             SetIsUiVisible(true);
         }
 
+        bool interact = Input.GetKeyDown(KeyCode.E);
         // Toggle Receptacle UI with E
-        if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
+        if (interact && receptacle.GetIsPlayerColliding() == true)
         {
             if (isReceptUIVis == false)
             {
@@ -153,7 +154,7 @@ public class SojournerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && refSystem.GetIsPlayerColliding() == true)
+        if (interact && refSystem.GetIsPlayerColliding() == true)
         {
             if (isRefUIVis == false)
             {
@@ -177,7 +178,6 @@ public class SojournerController : MonoBehaviour
         }
 
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         isOnGround = true;
