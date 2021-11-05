@@ -7,6 +7,7 @@ public class UI_Controller : MonoBehaviour
     private bool isUiVisible = true;
     private GameObject ui;
     private CanvasGroup canvasGroup;
+    public ManufactoringSystem system;
 
     void Start()
     {
