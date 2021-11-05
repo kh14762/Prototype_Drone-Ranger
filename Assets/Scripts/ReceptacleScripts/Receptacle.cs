@@ -8,6 +8,7 @@ public class Receptacle : MonoBehaviour, IInteractable
     private GameObject sojourner;
     private SojournerController s_controller;
     private bool isPlayerColliding;
+    private UI_Inventory ui_inventory;
     [SerializeField] private Receptacle_UI receptacle_ui;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,6 @@ public class Receptacle : MonoBehaviour, IInteractable
         receptacle_ui.SetInventory(inventory);
         sojourner = GameObject.Find("Sojourner");
         s_controller = sojourner.GetComponent<SojournerController>();
-        Debug.Log(s_controller);
         this.HideUI();
     }
 
@@ -41,6 +41,14 @@ public class Receptacle : MonoBehaviour, IInteractable
         if (other.gameObject.CompareTag("Player"))
         {
             SetIsPlayerColliding(false);
+            //  tell the s* controller that receptacle UI is hidden
+            //  Hide the player ui and tell controller
+            if (s_controller.GetIsReceptUIVis() == true)
+            {
+                s_controller.HideUI();
+                s_controller.SetIsUiVisible(false);
+            }
+            s_controller.SetIsReceptUIVis(false);
             Debug.Log("player no longer colliding with receptacle");
             //  Hide receptacle ui
             this.HideUI();
@@ -73,14 +81,4 @@ public class Receptacle : MonoBehaviour, IInteractable
     {
         return isPlayerColliding;
     }
-    public void SetReceptacleUI(Receptacle_UI receptacle_ui)
-    {
-        this.receptacle_ui = receptacle_ui;
-    }
-
-    public Receptacle_UI GetReceptacleUI()
-    {
-        return receptacle_ui;
-    }
-
 }

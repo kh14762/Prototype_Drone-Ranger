@@ -13,9 +13,6 @@ MonoImporter:
   - MetalScrapSprite: {fileID: 21300000, guid: 256b3ab8d502f6b478dc4e3626c47f21, type: 3}
   - PolymerScrapSprite: {fileID: 21300000, guid: 485969b35545c26429f855bf24a9d05d, type: 3}
   - SiliconScrapSprite: {fileID: 21300000, guid: eaaa687c5b044bc4d9a0c3039bf61f6e, type: 3}
-  - RefinedMetalSprite: {fileID: 21300000, guid: 256b3ab8d502f6b478dc4e3626c47f21, type: 3}
-  - RefinedSiliconSprite: {fileID: 21300000, guid: 485969b35545c26429f855bf24a9d05d, type: 3}
-  - RefinedPolymerSprite: {fileID: 21300000, guid: eaaa687c5b044bc4d9a0c3039bf61f6e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
