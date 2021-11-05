@@ -7,6 +7,9 @@ TagManager:
   - Receptacle
   - Ground
   - Enemy
+  - Attack
+  - Enemy Attack
+  - Hurtbox
   layers:
   - Default
   - TransparentFX

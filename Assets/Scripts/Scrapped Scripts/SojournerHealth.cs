@@ -46,29 +46,20 @@ public class SojournerHealth : MonoBehaviour
         {
             currentHealth -= dmg;
             healthBar.SetHealth(currentHealth);
+
+
+             // knockback when taking damage
+             Vector3 awayFromEnemy = transform.position - enemyRB.transform.position;
+             Vector3 knockback = new Vector3(awayFromEnemy.x * knockBackStrength, sojournerRigidBody.velocity.y, awayFromEnemy.z * knockBackStrength);
+
+             sojournerController.MoveDirection += knockback;
+             sojournerRigidBody.AddForce(sojournerController.MoveDirection, ForceMode.Impulse);
+             StartCoroutine(TempSpeed()); // disable movement temporarily
+
+             StartCoroutine(DamageCooldownRoutine());
             
-
-
-            // knockback when taking damage
-            Vector3 awayFromEnemy = transform.position - enemyRB.transform.position;
-            Vector3 knockback = new Vector3(awayFromEnemy.x * knockBackStrength, sojournerRigidBody.velocity.y, awayFromEnemy.z * knockBackStrength);
-            //sojournerRigidBody.AddForce(knockback, ForceMode.Impulse);
-
-            sojournerController.MoveDirection += knockback;
-            sojournerRigidBody.AddForce(sojournerController.MoveDirection, ForceMode.Impulse);
-            StartCoroutine(TempSpeed());
-
-            StartCoroutine(DamageCooldownRoutine());
         }
          
-    }
-
-    // health tick down "animation"
-    IEnumerator HealthAnim()
-    {
-        tickDown = false;
-        yield return new WaitForSeconds(1);
-        tickDown = true;
     }
 
     // damage cooldown
@@ -79,12 +70,10 @@ public class SojournerHealth : MonoBehaviour
         canDmg = true;
     }
 
+    // disable movement temporarily
     IEnumerator TempSpeed()
     {
-
-        // disable input temporarily
         sojournerController.enableInput = false;
-        Debug.Log(sojournerController.enableInput);
         yield return new WaitForSeconds(0.09f);
         sojournerController.enableInput = true;
     }
@@ -92,7 +81,7 @@ public class SojournerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy Attack"))
         {
             Debug.Log("hit");
             Rigidbody enemyRB = other.GetComponent<Rigidbody>();
