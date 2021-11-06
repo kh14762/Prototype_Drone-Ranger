@@ -1031,7 +1031,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2962964, y: 1}
+    m_SensorSize: {x: 2.51, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2045,7 +2045,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899556985}
-  m_LocalRotation: {x: 0.12451125, y: -0.000000054894528, z: 0.000000006888048, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451125, y: 0.000000028622903, z: -0.0000000035923677, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2089,7 +2089,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2962964, y: 1}
+    m_SensorSize: {x: 2.51, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2180,7 +2180,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12451124, y: -0.000000031257578, z: 0.0000000039224437, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: 0.000000031268357, z: -0.0000000039237964, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 6.4110003, z: -5.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1344964263}
   m_HandleRect: {fileID: 1344964262}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3427,8 +3427,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1353159395}
-  - component: {fileID: 1353159396}
   - component: {fileID: 1353159397}
+  - component: {fileID: 1353159396}
   m_Layer: 0
   m_Name: UI_Printer
   m_TagString: Untagged
@@ -3934,8 +3934,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 439686770}
   m_HandleRect: {fileID: 439686769}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.5276666
+  m_Value: 0.99999976
+  m_Size: 0.52766657
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4184,7 +4184,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566408608}
-  m_LocalRotation: {x: 0.10649046, y: -0.000000037845435, z: 0.000000004052684, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649046, y: 0.000000011493634, z: -0.0000000012315048, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4228,7 +4228,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2962964, y: 1}
+    m_SensorSize: {x: 2.51, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5288,12 +5288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10822168e71365646b7c9b57527c8af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swordSprite: {fileID: 21300000, guid: 0567c05197d0d374ca05f1aed297c2e4, type: 3}
-  healthPotionSprite: {fileID: 21300000, guid: 28cd643389c25de4eb77f49567812e47, type: 3}
-  manaPotionSprite: {fileID: 21300000, guid: 567c1dba48fd591478dcf0bb74786ddf, type: 3}
-  coinSprite: {fileID: 21300000, guid: cf36dfe8f1a0e82469863e44b6425d50, type: 3}
-  medkitSprite: {fileID: 21300000, guid: fbb108ca9ae39704c94c4c6321df3d1a, type: 3}
-  cubeSprite: {fileID: 21300000, guid: e26af5692c00641b89c2596daa35232c, type: 3}
   MetalScrapSprite: {fileID: 21300000, guid: a3ce307783c0bf64ca2c6fdd25d3e97c, type: 3}
   PolymerScrapSprite: {fileID: 21300000, guid: 77dd5de7866b0934f89f78163d7e2dfd, type: 3}
   SiliconScrapSprite: {fileID: 21300000, guid: eaaa687c5b044bc4d9a0c3039bf61f6e, type: 3}
@@ -5639,7 +5633,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.14253858, y: -0.000000046788397, z: 0.000000006737407, w: 0.98978925}
+  m_LocalRotation: {x: 0.14253858, y: 0.000000020091033, z: -0.0000000028938363, w: 0.98978925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5683,7 +5677,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 3.2962964, y: 1}
+    m_SensorSize: {x: 2.51, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -62,6 +62,7 @@ public class SojournerController : MonoBehaviour
 
         // Lock cursor when playing
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined; // keep confined in the game window
 
         //  Set ui_Printer
         ui_Printer = GameObject.Find("UI_Printer").GetComponent<UI_Printer>();

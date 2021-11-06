@@ -20,18 +20,22 @@ public class UI_Printer : MonoBehaviour
         HideUI();
         SetIsUIVisible(false);
 
-
+        //  Set UI Transforms
+        itemContainer = transform.Find("ItemContainer");
+        inputSlotTransform = transform.Find("InputSlot");
+        //  Test: adding item to input slot
+        CreateItemInput(new Item { itemType = Item.ItemType.RefinedPolymer, amount = 3});
     }
 
+    //  Creates Item Icon on input slot
     private void CreateItemInput(Item item)
     {
-        //Transform uiItemTransform = Instantiate(pfIU_Item, itemContainer);
-        //RectTransform itemRectTransform = uiItemTransform.GetComponent<RectTransform>();
-        //itemRectTransform.anchoredPosition = inputSlotTransform.GetComponent<RectTransform>().anchoredPosition;
-        //uiItemTransform.GetComponent<UI_Item>().SetItem(item);
+        Transform uiItemTransform = Instantiate(pfUI_Item, itemContainer);
+        RectTransform itemRectTransform = uiItemTransform.GetComponent<RectTransform>();
+        itemRectTransform.anchoredPosition = inputSlotTransform.GetComponent<RectTransform>().anchoredPosition;
+        uiItemTransform.GetComponent<UI_Item>().SetItem(item);
 
-        //UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
-
+        UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
     }
 
     private void CreateItemOutput(Item item)
