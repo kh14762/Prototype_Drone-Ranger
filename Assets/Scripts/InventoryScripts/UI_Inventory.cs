@@ -21,7 +21,7 @@ public class UI_Inventory : MonoBehaviour
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
         itemSlotTemplate.gameObject.SetActive(false);
-        canvasGroup = gameObject.GetComponent<CanvasGroup>();
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();      
     }
 
     public void SetSojournerController(SojournerController player)
@@ -56,30 +56,30 @@ public class UI_Inventory : MonoBehaviour
         float itemSlotCellSize = 75f;
         foreach (Inventory.InventorySlot inventorySlot in inventory.GetInventorySlotArray())
         {
-            Item item = inventorySlot.GetItem();
+            Item item = inventorySlot.GetItem(); 
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
-            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
-            {
-                Debug.Log("Left Clicked on UI_Inventory");
+            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
+                Debug.Log("Left Clicked on UI_Inventory");    
             };
-            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () =>
-            {
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () => {
                 Debug.Log("Right Clicked on UI_Inventory");
             };
 
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
 
-
-            // Not Empty, has Item
+            
             if (!inventorySlot.IsEmpty())
             {
+                // Not Empty, has Item
                 Transform uiItemTransform = Instantiate(pfUI_Item, itemSlotContainer);
                 uiItemTransform.GetComponent<RectTransform>().anchoredPosition = itemSlotRectTransform.anchoredPosition;
                 UI_Item uiItem = uiItemTransform.GetComponent<UI_Item>();
+                //Get uiText
+                uiItem.SetAmountText(5);
                 uiItem.SetItem(item);
-
+               
 
                 //  Drag on same item to merge together
                 //  below code is jank
@@ -88,30 +88,44 @@ public class UI_Inventory : MonoBehaviour
                     Debug.Log("Dropped on ui_Item!");
                     //  Check if item is stackable
                     Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;
+                    Inventory.InventorySlot tmpInventorySlot = inventorySlot;                   
                     Debug.Log(draggedItem.amount);
                     if (tmpInventorySlot.GetItem().ToString() == draggedItem.ToString())
                     {
                         draggedItem.RemoveFromItemHolder();
                         inventory.AddItemMergeAmount(item, draggedItem, tmpInventorySlot);
-                    }
+                    } 
                 });
             }
 
             UI_ItemSlot uiItemSlot = itemSlotRectTransform.GetComponent<UI_ItemSlot>();
-            Inventory.InventorySlot tmpInventorySlot = inventorySlot;
             uiItemSlot.SetOnDropAction(() =>
             {
-                //  check if item slot is empty or not
-                //  this is to prevent unintended behavior: filling an already occupied slot
-                if (tmpInventorySlot.IsEmpty())
-                {
-                    // Dropped on this UI Item Slot
-                    Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                    draggedItem.RemoveFromItemHolder();
-                    inventory.AddItem(draggedItem, tmpInventorySlot);
-                }
+                // Dropped on this UI Item Slot
+                Item draggedItem = UI_ItemDrag.Instance.GetItem();
+                Inventory.InventorySlot tmpInventorySlot = inventorySlot;
+                draggedItem.RemoveFromItemHolder();
+                inventory.AddItem(draggedItem, tmpInventorySlot);
             });
+
+
+            // Drop item
+            //Item duplicateItem = new Item { itemType = item.itemType, amount = item.amount };
+            //inventory.RemoveItem(item);
+            //ItemWorld.DropItem(player.GetPosition(), duplicateItem);
+
+            //Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
+            //image.sprite = item.GetSprite();
+
+            //TextMeshProUGUI uiText = itemSlotRectTransform.Find("amountText").GetComponent<TextMeshProUGUI>();
+            //if (item.amount > 1)
+            //{
+            //    uiText.SetText(item.amount.ToString());
+            //}
+            //else
+            //{
+            //    uiText.SetText("");
+            //}
 
             x++;
             if (x >= 4)
@@ -119,8 +133,6 @@ public class UI_Inventory : MonoBehaviour
                 x = 0;
                 y++;
             }
-
-
         }
     }
 

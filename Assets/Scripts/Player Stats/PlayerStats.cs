@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerStats : MonoBehaviour
     public SojournerController sojournerController;
     private Coroutine stamRegen;
     private Coroutine healthRegen;
+    [SerializeField] TextMeshProUGUI stats;
 
     public int maxHealth = 100;
     public int currentHealth { get; private set; } // get value from anywhere but only set it in this class
@@ -47,6 +49,9 @@ public class PlayerStats : MonoBehaviour
         }
 
         stamUseCD -= Time.deltaTime;
+
+        stats.SetText("Damage: " + damage.GetValue() + "\nArmor: " + armor.GetValue());
+        
     }
 
     public void TakeDmg(int damage)
@@ -161,5 +166,23 @@ public class PlayerStats : MonoBehaviour
 
 
         // death animation
+    }
+
+    public void SetHealth(int health)
+    {
+        currentHealth = health;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void SetStamina(int stamina)
+    {
+        currentStamina = stamina;
+        staminaBar.SetStamina(currentStamina);
+    }
+
+    // add stats based on weapon
+    public void AddStatBonus(int dmg)
+    {
+        damage.SetValue(dmg);
     }
 }

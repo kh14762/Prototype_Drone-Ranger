@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HealthBar : MonoBehaviour
+public class EnemyHealthBar : MonoBehaviour
 {
     public Slider healthSlider; // health of the sojourner
 
@@ -20,6 +20,5 @@ public class HealthBar : MonoBehaviour
     {
         healthSlider.value = health;
     }
-
 
 }
