@@ -10,57 +10,150 @@ public class Drone : MonoBehaviour
     // Object target
     private Transform goal;
     private Transform goal2;
-    public float inventorySpace = 5.0f;
-
     public GameObject materials;
+
+    //sight range
+    public LayerMask whatIsMat;
+    public bool matInSightRange;
+    public float sightRange;
+    public UnityEngine.AI.NavMeshAgent agent;
+
+
+    //inventory space and UI
+    public float inventorySpace = 5.0f;
+    private GameObject sojourner;
+    // private SojournerController s_controller; --for drone interactions
+    // private bool isPlayerColliding;
+    private Inventory inventory;
+    private UI_Inventory ui_inventory;
+    [SerializeField] private Drone_UI drone_ui;
+
+    
     
 
     // Start is called before the first frame update
     void Start() 
     {
-        
+        inventory = new Inventory(5);
+        drone_ui.SetDrone(this);
+        drone_ui.SetInventory(inventory);
+        sojourner = GameObject.Find("Sojourner");
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        //s_controller = sojourner.GetComponent<SojournerController>();
+        //this.HideUI();
     }
 
     // Update is called once per frame
-    void LateUpdate() {
-        if (inventorySpace != 0)
-        {
-          MoveToMats();  
-        }else
-        {
-            MoveToReceptacle();
+    void Update(){ //replaces LateUpdate or change back it back to LateUpdate()
+        matInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsMat);
+        if(matInSightRange){
+            if (inventorySpace != 0){ MoveToMats(); }
+            else{ MoveToReceptacle(); }
         }
-        
+    }
+    private void OnDrawGizmosSelected() //shows sightrange
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+     public GameObject FindClosestEnemy()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Mats");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
     }
 
     private void MoveToMats(){
         goal = GameObject.FindGameObjectWithTag("Mats").transform;
-        this.transform.LookAt(goal.position);
-        Vector3 direction = goal.position - this.transform.position;
-
-        if (direction.magnitude > accuracy) {
-            this.transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
-        }
+        agent.SetDestination(FindClosestEnemy().transform.position);
+        
     }
     private void MoveToReceptacle()
     {
         goal2 = GameObject.FindGameObjectWithTag("Receptacle").transform;
-        this.transform.LookAt(goal2.position);
-        Vector3 direction = goal2.position - this.transform.position;
+        agent.SetDestination(goal2.position);
 
-        if (direction.magnitude > accuracy) {
-            this.transform.Translate(direction.normalized * speed * Time.deltaTime, Space.World);
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
+         //  Set bool is Player colliding to true if collider is player -- UI interaction
+        // if (other.gameObject.CompareTag("Player"))
+        // {
+        //     SetIsPlayerColliding(true);
+        //     Debug.Log("player colliding with receptacle");
+        // }
+
+
         if(other.CompareTag("Mats"))
         {
             Destroy(other.gameObject);
             inventorySpace--;
         } else if (other.CompareTag("Receptacle"))
         {
-            inventorySpace = 5;
+            //Item[] items;
+
+            inventorySpace = 5;    
         }
     }
+
+//UI Functions -- if want interaction with drone (not done)
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         SetIsPlayerColliding(false);
+    //         //  tell the s* controller that receptacle UI is hidden
+    //         //  Hide the player ui and tell controller
+    //         if (s_controller.GetIsReceptUIVis() == true)
+    //         {
+    //             s_controller.HideUI();
+    //             s_controller.SetIsUiVisible(false);
+    //         }
+    //         s_controller.SetIsReceptUIVis(false);
+    //         Debug.Log("player no longer colliding with receptacle");
+    //         //  Hide receptacle ui
+    //         this.HideUI();
+    //     }
+    // }
+    
+    // public void Interact()
+    // {
+    //     ShowUI();
+    // }
+
+    // public void ShowUI()
+    // {
+    //     drone_ui.GetCanvasGroup().alpha = 1f;
+    //     drone_ui.GetCanvasGroup().blocksRaycasts = true;
+    // }
+
+    // public void HideUI()
+    // {
+    //     drone_ui.GetCanvasGroup().alpha = 0f;
+    //     drone_ui.GetCanvasGroup().blocksRaycasts = false;
+    // }
+
+    // public void SetIsPlayerColliding(bool isPlayerColliding)
+    // {
+    //     this.isPlayerColliding = isPlayerColliding;
+    // }
+
+    // public bool GetIsPlayerColliding()
+    // {
+    //     return isPlayerColliding;
+    // }
 }

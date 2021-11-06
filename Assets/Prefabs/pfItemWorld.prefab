@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1232153254481948138}
   - component: {fileID: -3135015944450184956}
   - component: {fileID: -236843053225410896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pfItemWorld
   m_TagString: Mats
   m_Icon: {fileID: 0}
