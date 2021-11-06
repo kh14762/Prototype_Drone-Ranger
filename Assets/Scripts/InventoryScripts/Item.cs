@@ -8,6 +8,7 @@ public class Item
 {
     public enum ItemType
     {
+        None,
         Sword,
         HealthPotion,
         ManaPotion,
@@ -17,6 +18,9 @@ public class Item
         MetalScrap,
         PolymerScrap,
         SiliconScrap,
+        RefinedMetal,
+        RefinedPolymer,
+        RefinedSilicon,
     }
 
     public ItemType itemType;

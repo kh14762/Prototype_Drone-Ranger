@@ -16,6 +16,7 @@ public class SojournerController : MonoBehaviour
     public bool isOnGround = true;
     private bool isUiVisible = true;
     private bool isReceptUIVis = false;
+    private bool isRefUIVis = true;
     private Receptacle receptacle;
 
     private Inventory inventory;
@@ -32,6 +33,7 @@ public class SojournerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         inventory = new Inventory(UseItem, 8);
         uiInventory.SetSojournerController(this);
         uiInventory.SetInventory(inventory);
@@ -215,6 +217,14 @@ public class SojournerController : MonoBehaviour
         return isUiVisible;
     }
 
+    public void SetIsRefUIVis(bool isRefUIVis)
+    {
+        this.isRefUIVis = isRefUIVis;
+    }
+    public bool GetIsRefUIVis()
+    {
+        return isRefUIVis;
+    }
     public void ShowUI()
     {
         uiInventory.GetCanvasGroup().alpha = 1f;
