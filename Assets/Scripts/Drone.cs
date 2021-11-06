@@ -49,6 +49,8 @@ public class Drone : MonoBehaviour
         if(matInSightRange){
             if (inventorySpace != 0){ MoveToMats(); }
             else{ MoveToReceptacle(); }
+        }else{
+            MoveToReceptacle();
         }
     }
     private void OnDrawGizmosSelected() //shows sightrange

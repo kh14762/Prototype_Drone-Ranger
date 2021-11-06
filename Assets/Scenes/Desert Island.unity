@@ -1582,7 +1582,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899556985}
-  m_LocalRotation: {x: 0.12451125, y: 0.00000003058131, z: -0.0000000038381227, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451125, y: -0.000000054219246, z: 0.0000000068033095, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1754,7 +1754,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   matInSightRange: 0
-  sightRange: 8
+  sightRange: 5
   agent: {fileID: 943202158}
   inventorySpace: 5
   drone_ui: {fileID: 0}
@@ -1878,7 +1878,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12451124, y: 0.000000031957622, z: -0.0000000040102908, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: -0.000000031265593, z: 0.0000000039234496, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 6.21, z: -17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3108,7 +3108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566408608}
-  m_LocalRotation: {x: 0.10649046, y: 0.000000022494037, z: -0.0000000024096416, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649046, y: -0.000000047368513, z: 0.000000005072601, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3811,7 +3811,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.14253858, y: 0.0000000052487055, z: -7.564058e-10, w: 0.98978925}
+  m_LocalRotation: {x: 0.14253858, y: -0.000000045603684, z: 0.000000006566799, w: 0.98978925}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
