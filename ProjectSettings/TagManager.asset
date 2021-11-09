@@ -7,11 +7,13 @@ TagManager:
   - Receptacle
   - Ground
   - Enemy
+  - Water
+  - Resource1
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
