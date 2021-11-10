@@ -5,13 +5,15 @@ using UnityEngine;
 public class UI_Controller : MonoBehaviour
 {
     private bool isUiVisible = true;
-    public GameObject ui;
+    //public GameObject ui;
     private CanvasGroup canvasGroup;
+
 
 
     void Start()
     {
-        canvasGroup = ui.GetComponent<CanvasGroup>();
+
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class UI_Controller : MonoBehaviour
     }
     public void HideUI()
     {
+        Cursor.lockState = CursorLockMode.Locked; // lock cursor
         GetCanvasGroup().alpha = 0f;
         GetCanvasGroup().blocksRaycasts = false;
         SetIsUiVisible(false);

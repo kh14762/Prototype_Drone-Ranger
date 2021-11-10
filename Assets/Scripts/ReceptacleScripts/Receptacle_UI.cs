@@ -14,11 +14,18 @@ public class Receptacle_UI : MonoBehaviour
     private Transform itemSlotTemplate;
     private Receptacle receptacle;
     private CanvasGroup canvasGroup;
+  
+
+
+
     // Start is called before the first frame update
     private void Start()
     {
+        
         itemSlotContainer = transform.Find("r_itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("r_itemSlotTemplate");
+        
+
         itemSlotTemplate.gameObject.SetActive(false);
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
     }
@@ -42,7 +49,8 @@ public class Receptacle_UI : MonoBehaviour
     }
     private void RefreshInventoryItems()
     {
-        foreach (Transform child in itemSlotContainer)
+
+        /*foreach (Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);
@@ -57,10 +65,12 @@ public class Receptacle_UI : MonoBehaviour
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
-            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () => {
+            itemSlotRectTransform.GetComponent<Button_UI>().ClickFunc = () =>
+            {
                 Debug.Log("Left Clicked on UI_Inventory");
             };
-            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () => {
+            itemSlotRectTransform.GetComponent<Button_UI>().MouseRightClickFunc = () =>
+            {
                 Debug.Log("Right Clicked on UI_Inventory");
             };
 
@@ -110,7 +120,7 @@ public class Receptacle_UI : MonoBehaviour
                 x = 0;
                 y++;
             }
-        }
+        }*/
     }
 
     public CanvasGroup GetCanvasGroup()

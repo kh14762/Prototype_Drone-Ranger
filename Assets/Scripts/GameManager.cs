@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         respawnButton.gameObject.SetActive(false); // hide respawn button
         isGameActive = true;
         Cursor.lockState = CursorLockMode.Locked; // lock cursor
-        playerStats.Awake();
+        playerStats.Awake(); 
         sojournerController.transform.position = new Vector3(0, 1, 8); // set sojourner position
         cinemachineFreeLook.gameObject.SetActive(true); // enable camera
     }

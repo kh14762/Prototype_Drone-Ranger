@@ -7,6 +7,9 @@ TagManager:
   - Receptacle
   - Ground
   - Enemy
+  - Enemy Attack
+  - Attack
+  - ReceptacleUI
   layers:
   - Default
   - TransparentFX
