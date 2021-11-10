@@ -180,7 +180,10 @@ public class SojournerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Stations")
+        {
+            isOnGround = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
