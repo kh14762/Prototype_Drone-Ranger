@@ -15,7 +15,7 @@ public class SojournerController : MonoBehaviour
     public float horizontalInput;
     public bool isOnGround = true;
     private bool isUiVisible = true;
-   
+
 
     private Inventory inventory;
     [SerializeField] private UI_Inventory uiInventory;
@@ -60,7 +60,7 @@ public class SojournerController : MonoBehaviour
         Physics.gravity *= gravityModifier;
 
         receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
-        refSystem = GameObject.Find("RefiningStation").GetComponent<RefiningSystem>(); 
+        refSystem = GameObject.Find("RefiningStation").GetComponent<RefiningSystem>();
         printer = GameObject.Find("3DPrinter").GetComponent<Printer>();
         HideUI();
         SetIsUiVisible(false);
@@ -104,16 +104,16 @@ public class SojournerController : MonoBehaviour
                 {
                     transform.rotation = Quaternion.LookRotation(MoveDirection);
                 }*/
-               // else
-               //{
-                    // back always faces the camera, when moving AND when standing still.
-                   
-                    transform.rotation = Quaternion.LookRotation(forward);
+                // else
+                //{
+                // back always faces the camera, when moving AND when standing still.
+
+                transform.rotation = Quaternion.LookRotation(forward);
                 //}
 
             }
         }
-        
+
     }
 
 
@@ -127,7 +127,7 @@ public class SojournerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && isOnGround && playerStats.currentStamina > 0)
             {
                 sojournerSpeed = sojournerSprintSpeed;
-                
+
             }
             else
             {
@@ -139,115 +139,115 @@ public class SojournerController : MonoBehaviour
             transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
             transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
 
-        bool interact = Input.GetKeyDown(KeyCode.E);
-        // Toggle Receptacle UI with E
-        if (interact && receptacle.GetIsPlayerColliding())
-        {
-            if (isReceptUIVis == false)
-            {
-                sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isOnGround = false;
-            }
-
-            //----------------------------------------------------------Player Inventory----------------------------------------------------//
-            //  Toggle Player Inventory
-            if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
-            {
-                Cursor.lockState = CursorLockMode.Locked; // lock cursor
-                HideUI();
-                SetIsUiVisible(false);
-            }
-        }
-
-        if (interact && refSystem.GetIsPlayerColliding())
-        {
-            if (isRefUIVis == false)
-            {
-                Cursor.lockState = CursorLockMode.None; // unlock cursor
-                ShowUI();
-                SetIsUiVisible(true);
-            }
-
+            bool interact = Input.GetKeyDown(KeyCode.E);
             // Toggle Receptacle UI with E
-            if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
+            if (interact && receptacle.GetIsPlayerColliding())
             {
                 if (isReceptUIVis == false)
                 {
-                    Cursor.lockState = CursorLockMode.None; // unlock cursor
-                    receptacle.Interact();
-                    isReceptUIVis = true;
-                    if (GetIsUiVisible() == false)
-                    {
-                        ShowUI();
-                        SetIsUiVisible(true);
-
-                    }
+                    sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    isOnGround = false;
                 }
-                else
+
+                //----------------------------------------------------------Player Inventory----------------------------------------------------//
+                //  Toggle Player Inventory
+                if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
                 {
                     Cursor.lockState = CursorLockMode.Locked; // lock cursor
-                    receptacle.HideUI();
-                    isReceptUIVis = false;
                     HideUI();
                     SetIsUiVisible(false);
                 }
             }
 
-            
-
-        }
-
-        if (interact && printer.GetIsPlayerColliding())
-        {
-            if (!ui_Printer.GetIsUIVisible())
+            if (interact && refSystem.GetIsPlayerColliding())
             {
-                Cursor.lockState = CursorLockMode.None; // unlock cursor
-                printer.Interact();
-                ui_Printer.SetIsUIVisible(true);
-                if (GetIsUiVisible() == false)
+                if (isRefUIVis == false)
                 {
+                    Cursor.lockState = CursorLockMode.None; // unlock cursor
                     ShowUI();
                     SetIsUiVisible(true);
                 }
+
+                // Toggle Receptacle UI with E
+                if (Input.GetKeyDown(KeyCode.E) && receptacle.GetIsPlayerColliding() == true)
+                {
+                    if (isReceptUIVis == false)
+                    {
+                        Cursor.lockState = CursorLockMode.None; // unlock cursor
+                        receptacle.Interact();
+                        isReceptUIVis = true;
+                        if (GetIsUiVisible() == false)
+                        {
+                            ShowUI();
+                            SetIsUiVisible(true);
+
+                        }
+                    }
+                    else
+                    {
+                        Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                        receptacle.HideUI();
+                        isReceptUIVis = false;
+                        HideUI();
+                        SetIsUiVisible(false);
+                    }
+                }
+
+
+
             }
-            else
+
+            if (interact && printer.GetIsPlayerColliding())
             {
-                Cursor.lockState = CursorLockMode.Locked; // lock cursor
-                ui_Printer.HideUI();
-                ui_Printer.SetIsUIVisible(false);
-                HideUI();
-                SetIsUiVisible(false);
+                if (!ui_Printer.GetIsUIVisible())
+                {
+                    Cursor.lockState = CursorLockMode.None; // unlock cursor
+                    printer.Interact();
+                    ui_Printer.SetIsUIVisible(true);
+                    if (GetIsUiVisible() == false)
+                    {
+                        ShowUI();
+                        SetIsUiVisible(true);
+                    }
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                    ui_Printer.HideUI();
+                    ui_Printer.SetIsUIVisible(false);
+                    HideUI();
+                    SetIsUiVisible(false);
+                }
             }
+
+            //  TODO:
+            //  using a list to store a manufactoring systems will cut back on dupication code
+            //for (int i = 0; i < manuSystemList.Count; i++)
+            //{
+            //    if (interact && manuSystemList[i].GetIsPlayerColliding() == true)
+            //    {
+            //        if (!manuSystemList[i].GetIsUIVisible())
+            //        {
+            //            Cursor.lockState = CursorLockMode.None; // unlock cursor
+            //            manuSystemList[i].Interact();
+            //            manuSystemList[i].SetIsUIVisible(true);
+            //            if (GetIsUiVisible() == false)
+            //            {
+            //                ShowUI();
+            //                SetIsUiVisible(true);
+            //            }
+            //        } else
+            //        {
+            //            Cursor.lockState = CursorLockMode.Locked; // lock cursor
+            //            manuSystemList[i].HideUI();
+            //            isRefUIVis = false;
+            //            HideUI();
+            //            SetIsUiVisible(false);
+            //        }
+            //    }
+            //}
         }
-
-        //  TODO:
-        //  using a list to store a manufactoring systems will cut back on dupication code
-        //for (int i = 0; i < manuSystemList.Count; i++)
-        //{
-        //    if (interact && manuSystemList[i].GetIsPlayerColliding() == true)
-        //    {
-        //        if (!manuSystemList[i].GetIsUIVisible())
-        //        {
-        //            Cursor.lockState = CursorLockMode.None; // unlock cursor
-        //            manuSystemList[i].Interact();
-        //            manuSystemList[i].SetIsUIVisible(true);
-        //            if (GetIsUiVisible() == false)
-        //            {
-        //                ShowUI();
-        //                SetIsUiVisible(true);
-        //            }
-        //        } else
-        //        {
-        //            Cursor.lockState = CursorLockMode.Locked; // lock cursor
-        //            manuSystemList[i].HideUI();
-        //            isRefUIVis = false;
-        //            HideUI();
-        //            SetIsUiVisible(false);
-        //        }
-        //    }
-        //}
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -63,12 +63,6 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.Sword:            return ItemAssets.Instance.swordSprite;
-            case ItemType.HealthPotion:     return ItemAssets.Instance.healthPotionSprite;
-            case ItemType.ManaPotion:       return ItemAssets.Instance.manaPotionSprite;
-            case ItemType.Coin:             return ItemAssets.Instance.coinSprite;
-            case ItemType.Medkit:           return ItemAssets.Instance.medkitSprite;
-            case ItemType.Cube:             return ItemAssets.Instance.cubeSprite;
             case ItemType.MetalScrap:       return ItemAssets.Instance.MetalScrapSprite;
             case ItemType.PolymerScrap:     return ItemAssets.Instance.PolymerScrapSprite;
             case ItemType.SiliconScrap:     return ItemAssets.Instance.SiliconScrapSprite;
