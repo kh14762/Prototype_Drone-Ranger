@@ -135,31 +135,35 @@ public class SojournerController : MonoBehaviour
                 }
 
 
-                /*// Move Forward or backwards when w or s key is pressed
-                transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
-                transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
+            /*// Move Forward or backwards when w or s key is pressed
+            transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
+            transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
 
-                bool interact = Input.GetKeyDown(KeyCode.E);
-                // Toggle Receptacle UI with E
-                if (interact && receptacle.GetIsPlayerColliding())
-                {
-                    if (isReceptUIVis == false)
-                    {
-                        sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                        isOnGround = false;
-                    }
+            // jump
+            if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+            {
+                sojournerRigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isOnGround = false;
+            }
 
-                    //----------------------------------------------------------Player Inventory----------------------------------------------------//
-                    //  Toggle Player Inventory
-                    if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
-                    {
-                        Cursor.lockState = CursorLockMode.Locked; // lock cursor
-                        HideUI();
-                        SetIsUiVisible(false);
-                    }
-                }
+            //----------------------------------------------------------Player Inventory----------------------------------------------------//
+            //  Toggle Player Inventory
+            if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
+            {
+                Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                HideUI();
+                SetIsUiVisible(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
+            {
+                Cursor.lockState = CursorLockMode.None; // unlock cursor
+                ShowUI();
+                SetIsUiVisible(true);
+            }
 
-                if (interact && refSystem.GetIsPlayerColliding())
+            bool interact = Input.GetKeyDown(KeyCode.E);
+            // Toggle Receptacle UI with E
+            if (interact && refSystem.GetIsPlayerColliding())
                 {
                     if (isRefUIVis == false)
                     {
