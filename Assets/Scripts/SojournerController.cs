@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class SojournerController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SojournerController : MonoBehaviour
     private Rigidbody sojournerRigidBody;
     public GameManager gameManager;
     public PlayerStats playerStats;
+    public CinemachineFreeLook cinemachineFreeLook;
+    private int camXAxisSpeed = 400, camYAxisSpeed = 2; // allow user to change
 
     public float jumpForce;
     public float gravityModifier;
@@ -67,7 +70,9 @@ public class SojournerController : MonoBehaviour
 
         // Lock cursor when playing
         Cursor.lockState = CursorLockMode.Confined; // keep confined in the game window
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; // keeps curose locked at the center of screen
+
+  
         
 
         //  Set ui_Printer
@@ -151,12 +156,18 @@ public class SojournerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
             {
                 Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                // enable camera rotation
+                cinemachineFreeLook.m_XAxis.m_MaxSpeed = camXAxisSpeed;
+                cinemachineFreeLook.m_YAxis.m_MaxSpeed = camYAxisSpeed;
                 HideUI();
                 SetIsUiVisible(false);
             }
             else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
             {
                 Cursor.lockState = CursorLockMode.None; // unlock cursor
+                // disable camera rotation
+                cinemachineFreeLook.m_XAxis.m_MaxSpeed = 0;
+                cinemachineFreeLook.m_YAxis.m_MaxSpeed = 0;
                 ShowUI();
                 SetIsUiVisible(true);
             }
@@ -206,6 +217,7 @@ public class SojournerController : MonoBehaviour
                     if (!ui_Printer.GetIsUIVisible())
                     {
                         Cursor.lockState = CursorLockMode.None; // unlock cursor
+                        
                         printer.Interact();
                         ui_Printer.SetIsUIVisible(true);
                         if (GetIsUiVisible() == false)
@@ -217,6 +229,7 @@ public class SojournerController : MonoBehaviour
                     else
                     {
                         Cursor.lockState = CursorLockMode.Locked; // lock cursor
+                        
                         ui_Printer.HideUI();
                         ui_Printer.SetIsUIVisible(false);
                         HideUI();
