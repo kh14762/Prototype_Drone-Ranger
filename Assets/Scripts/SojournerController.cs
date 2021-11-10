@@ -157,7 +157,8 @@ public class SojournerController : MonoBehaviour
                         Cursor.lockState = CursorLockMode.Locked; // lock cursor
                         HideUI();
                         SetIsUiVisible(false);
-                    }
+                    } 
+                
                 }
 
                 if (interact && refSystem.GetIsPlayerColliding())
