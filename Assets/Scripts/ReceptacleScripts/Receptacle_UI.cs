@@ -15,7 +15,7 @@ public class Receptacle_UI : MonoBehaviour
     private Receptacle receptacle;
     private CanvasGroup canvasGroup;
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         itemSlotContainer = transform.Find("r_itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("r_itemSlotTemplate");
