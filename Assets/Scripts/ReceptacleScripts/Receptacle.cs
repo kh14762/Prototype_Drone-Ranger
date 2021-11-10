@@ -48,10 +48,19 @@ public class Receptacle : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("player colliding with receptacle");
+            if (!ui_controller.GetIsUiVisible())
+            {
+                ui_controller.ShowUI();
+                s_controller.ShowUI();
+                s_controller.SetIsUiVisible(true);
+            } else
+            {
+                ui_controller.HideUI();
+                s_controller.HideUI();
+                s_controller.SetIsUiVisible(false);
+            }
             
-            ui_controller.ShowUI();
-            s_controller.ShowUI();
-            s_controller.SetIsUiVisible(true);
+
 
         }
     }
