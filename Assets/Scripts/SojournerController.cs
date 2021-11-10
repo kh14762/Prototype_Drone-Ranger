@@ -100,15 +100,15 @@ public class SojournerController : MonoBehaviour
                 sojournerRigidBody.velocity = new Vector3(MoveDirection.x * sojournerSpeed, sojournerRigidBody.velocity.y, MoveDirection.z * sojournerSpeed);
 
                 // Rotate sojourner in the direction they are moving
-                /*if (MoveDirection != new Vector3(0, 0, 0))
+                if (MoveDirection != new Vector3(0, 0, 0))
                 {
                     transform.rotation = Quaternion.LookRotation(MoveDirection);
-                }*/
+                }
                 // else
                 //{
                 // back always faces the camera, when moving AND when standing still.
 
-                transform.rotation = Quaternion.LookRotation(forward);
+                //transform.rotation = Quaternion.LookRotation(forward);
                 //}
 
             }
