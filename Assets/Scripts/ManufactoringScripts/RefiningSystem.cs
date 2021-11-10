@@ -22,7 +22,6 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
     private SojournerController s_controller;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
 
-
     void Start()
     {
         uiRefiningSystem.SetRefiningSystem(this);
