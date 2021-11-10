@@ -70,7 +70,7 @@ public class SojournerController : MonoBehaviour
 
         // Lock cursor when playing
         Cursor.lockState = CursorLockMode.Confined; // keep confined in the game window
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; // keeps curose locked at the center of screen
 
   
         
