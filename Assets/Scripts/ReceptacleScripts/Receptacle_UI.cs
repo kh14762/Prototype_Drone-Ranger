@@ -50,7 +50,7 @@ public class Receptacle_UI : MonoBehaviour
     private void RefreshInventoryItems()
     {
 
-        /*foreach (Transform child in itemSlotContainer)
+       /* foreach (Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplate) continue;
             Destroy(child.gameObject);

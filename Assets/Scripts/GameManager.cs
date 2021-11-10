@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
         Instantiate(pfReceptacle, new Vector3(7.78f, -5.23f, 6.43f), Quaternion.identity);
         Instantiate(pfRefiner, new Vector3(15f, -5.23f, 6.43f), Quaternion.identity);
 
+
     }
 
     public void GameOver()

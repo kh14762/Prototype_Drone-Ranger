@@ -7,7 +7,7 @@ public class SojournerController : MonoBehaviour
 {
     public Transform sojournerCamera;
     private Rigidbody sojournerRigidBody;
-    public GameManager gameManager;
+    private GameManager gameManager;
     public PlayerStats playerStats;
     public CinemachineFreeLook cinemachineFreeLook;
     private int camXAxisSpeed = 400, camYAxisSpeed = 2; // allow user to change
@@ -46,6 +46,9 @@ public class SojournerController : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        sojournerCamera = GameObject.Find("Main Camera").transform;
+        cinemachineFreeLook = GameObject.Find("Third Person Camera").GetComponent<CinemachineFreeLook>();
+
         uiController = gameManager.GetComponent<UI_Controller>();
         inventory = new Inventory(UseItem, 8);
         uiInventory.SetSojournerController(this);

@@ -30,7 +30,8 @@ public class PlayerStats : MonoBehaviour
 
 
     public void Awake()
-    {
+    { 
+
         // set max health of sojourner
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
