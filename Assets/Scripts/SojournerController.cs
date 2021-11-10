@@ -59,7 +59,6 @@ public class SojournerController : MonoBehaviour
         sojournerRigidBody = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
 
-        receptacle = GameObject.Find("Receptacle").GetComponent<Receptacle>();
         //refSystem = GameObject.Find("RefiningStation").GetComponent<RefiningSystem>();
         //printer = GameObject.Find("3DPrinter").GetComponent<Printer>();
         HideUI();
