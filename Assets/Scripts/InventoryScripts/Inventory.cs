@@ -32,13 +32,9 @@ public class Inventory : IItemHolder
             inventorySlotArray[i] = new InventorySlot(i);
         }
 
-        AddItem(new Item { itemType = Item.ItemType.Sword, amount = 1 });
-        AddItem(new Item { itemType = Item.ItemType.Cube, amount = 3 });
-        AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 4 });
-
-        //AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-        //AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
-        //AddItem(new Item { itemType = Item.ItemType.Cube, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
+        AddItem(new Item { itemType = Item.ItemType.SiliconScrap, amount = 3 });
+        AddItem(new Item { itemType = Item.ItemType.PolymerScrap, amount = 4 });
     }
 
     public InventorySlot GetEmptyInventorySlot()

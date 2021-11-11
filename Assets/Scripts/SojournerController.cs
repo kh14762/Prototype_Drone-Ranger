@@ -145,11 +145,6 @@ public class SojournerController : MonoBehaviour
                 sojournerSpeed = sojournerWalkSpeed;
             }
 
-
-            /*// Move Forward or backwards when w or s key is pressed
-            transform.Translate(Vector3.forward * Time.deltaTime * sojournerSpeed * verticalInput);
-            transform.Translate(Vector3.right * Time.deltaTime * sojournerSpeed * horizontalInput);*/
-
             // jump
             if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
             {

@@ -9,12 +9,6 @@ public class Item
     public enum ItemType
     {
         None,
-        Sword,
-        HealthPotion,
-        ManaPotion,
-        Coin,
-        Medkit,
-        Cube,
         MetalScrap,
         PolymerScrap,
         SiliconScrap,
@@ -74,7 +68,7 @@ public class Item
         switch (itemType)
         {
             default:    
-            case ItemType.Cube: return ItemMesh.Instance.cubeMesh;
+            case ItemType.MetalScrap: return ItemMesh.Instance.cubeMesh;
         }
     }
     public bool IsStackable()
@@ -87,34 +81,28 @@ public class Item
         switch(itemType)
         {
             default:
-            case ItemType.Coin:
-            case ItemType.HealthPotion:
-            case ItemType.ManaPotion:
-            case ItemType.Cube:
             case ItemType.MetalScrap: 
             case ItemType.PolymerScrap: 
             case ItemType.SiliconScrap:      
                 return true;
-            case ItemType.Sword:
-            case ItemType.Medkit:
+
                 return false;
         }
     }
 
-    public int GetCost()
-    {
-        return GetCost(itemType);
-    }
+    //public int GetCost()
+    //{
+    //    return GetCost(itemType);
+    //}
 
-    public static int GetCost(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.HealthPotion: return 30;
+    //public static int GetCost(ItemType itemType)
+    //{
+    //    switch (itemType)
+    //    {
+    //        default:
    
-        }
-    }
+    //    }
+    //}
 
     public override string ToString()
     {
