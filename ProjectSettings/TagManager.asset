@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Receptacle
-  - Ground
-  - Enemy
-  - Enemy Attack
-  - Attack
-  - ReceptacleUI
+  tags: [Receptacle, Ground, Mats, Enemy, Enemy Attack, Attack, ReceptacleUI]
   layers:
   - Default
   - TransparentFX
@@ -17,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Mats
   - 
   - 
   - 
