@@ -70,3 +70,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Assets/Prefabs/UI Prefabs/ReceptacleUI.prefab.meta
+Assets/Prefabs/UI Prefabs/UI_Printer.prefab.meta
