@@ -8,7 +8,7 @@ public class Receptacle : MonoBehaviour
     private GameObject sojourner;
     private SojournerController s_controller;
 
-    [SerializeField] private Receptacle_UI receptacle_ui;
+    private Receptacle_UI receptacle_ui;
     // Start is called before the first frame update
     private UI_Controller ui_controller;
 
@@ -17,9 +17,7 @@ public class Receptacle : MonoBehaviour
         
 
         inventory = new Inventory(32);
-        receptacle_ui = GameObject.FindGameObjectWithTag("ReceptacleUI");
-        /*Debug.Log(receptacle);*/
-
+        receptacle_ui = GameObject.Find("ReceptacleUI").GetComponent<Receptacle_UI>();
         receptacle_ui.SetReceptacle(this);
         receptacle_ui.SetInventory(inventory);
         Debug.Log("ui " + receptacle_ui);
