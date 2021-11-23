@@ -99,13 +99,18 @@ public class UI_Inventory : MonoBehaviour
             }
 
             UI_ItemSlot uiItemSlot = itemSlotRectTransform.GetComponent<UI_ItemSlot>();
+            Inventory.InventorySlot tmpInventorySlot = inventorySlot;
             uiItemSlot.SetOnDropAction(() =>
             {
+                //  check if item slot is empty or not
+                //  prevents deleting of items bug.
+                if (tmpInventorySlot.IsEmpty())
+                {
                 // Dropped on this UI Item Slot
                 Item draggedItem = UI_ItemDrag.Instance.GetItem();
-                Inventory.InventorySlot tmpInventorySlot = inventorySlot;
                 draggedItem.RemoveFromItemHolder();
                 inventory.AddItem(draggedItem, tmpInventorySlot);
+                }
             });
 
 
