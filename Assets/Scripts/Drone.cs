@@ -13,6 +13,9 @@ public class Drone : MonoBehaviour
     public float inventorySpace = 5.0f;
 
     public GameObject materials;
+    public LayerMask whatIsMat;
+    public bool matInSightRange;
+    public float sightRange;
     
 
     // Start is called before the first frame update
@@ -23,13 +26,16 @@ public class Drone : MonoBehaviour
 
     // Update is called once per frame
     void LateUpdate() {
-        if (inventorySpace != 0)
-        {
-          MoveToMats();  
-        }else
-        {
-            MoveToReceptacle();
+        matInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsMat);
+        if(matInSightRange){
+            if (inventorySpace != 0){ 
+                MoveToMats(); 
+            }
+            else{ 
+                MoveToReceptacle(); 
+            }
         }
+
         
     }
 
@@ -62,5 +68,10 @@ public class Drone : MonoBehaviour
         {
             inventorySpace = 5;
         }
+    }
+    private void OnDrawGizmosSelected() //shows sightrange
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }
