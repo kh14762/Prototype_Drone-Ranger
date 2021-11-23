@@ -17,8 +17,8 @@ public class Receptacle : MonoBehaviour
         
 
         inventory = new Inventory(32);
-        /*receptacle = GameObject.FindGameObjectWithTag("ReceptacleUI");
-        Debug.Log(receptacle);*/
+        receptacle_ui = GameObject.FindGameObjectWithTag("ReceptacleUI");
+        /*Debug.Log(receptacle);*/
 
         receptacle_ui.SetReceptacle(this);
         receptacle_ui.SetInventory(inventory);
