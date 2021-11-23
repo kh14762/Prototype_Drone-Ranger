@@ -23,10 +23,7 @@ public class Receptacle_UI : MonoBehaviour
     {
 
         itemSlotContainer = transform.Find("r_itemSlotContainer");
-        Debug.Log(itemSlotContainer);
         itemSlotTemplate = itemSlotContainer.Find("r_itemSlotTemplate");
-        Debug.Log(itemSlotTemplate);
-
 
         itemSlotTemplate.gameObject.SetActive(false);
         canvasGroup = gameObject.GetComponent<CanvasGroup>();
@@ -49,7 +46,7 @@ public class Receptacle_UI : MonoBehaviour
     {
         RefreshInventoryItems();
     }
-    private void RefreshInventoryItems()
+    public void RefreshInventoryItems()
     {
 
         foreach (Transform child in itemSlotContainer)
@@ -97,7 +94,7 @@ public class Receptacle_UI : MonoBehaviour
                 {
                     Debug.Log("Dropped on ui_Item!");
                         //  Check if item is stackable
-                        Item draggedItem = UI_ItemDrag.Instance.GetItem();
+                    Item draggedItem = UI_ItemDrag.Instance.GetItem();
                     Inventory.InventorySlot tmpInventorySlot = inventorySlot;
                     Debug.Log(draggedItem.amount);
                     if (tmpInventorySlot.GetItem().ToString() == draggedItem.ToString())

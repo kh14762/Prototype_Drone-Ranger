@@ -26,6 +26,7 @@ public class Drone : MonoBehaviour
     // private bool isPlayerColliding;
     private Inventory inventory;
     private UI_Inventory ui_inventory;
+    private Receptacle_UI receptacle_ui;
     [SerializeField] private Drone_UI drone_ui;
 
     
@@ -35,8 +36,9 @@ public class Drone : MonoBehaviour
     void Start() 
     {
         inventory = new Inventory(5);
-        drone_ui.SetDrone(this);
-        drone_ui.SetInventory(inventory);
+        receptacle_ui = GameObject.Find("ReceptacleUI").GetComponent<Receptacle_UI>();
+        //drone_ui.SetDrone(this);
+        //drone_ui.SetInventory(inventory);
         sojourner = GameObject.Find("Sojourner");
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //s_controller = sojourner.GetComponent<SojournerController>();
@@ -86,9 +88,9 @@ public class Drone : MonoBehaviour
     }
     private void MoveToReceptacle()
     {
-        goal2 = GameObject.FindGameObjectWithTag("Receptacle").transform;
+        goal2 = GameObject.FindGameObjectWithTag("Receptacle").GetComponent<BoxCollider>().transform;
+        // Go to the edge of receptacle collider
         agent.SetDestination(goal2.position);
-
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -107,9 +109,21 @@ public class Drone : MonoBehaviour
         } else if (other.CompareTag("Receptacle"))
         {
             //Item[] items;
-
-            inventorySpace = 5;    
+            inventorySpace = 5;
+            //  if the drone contacts receptacle
+            DropOffItems(other);
+           
         }
+    }
+
+    private void DropOffItems(Collider other)
+    {
+        //  get receptacle inventory
+        Receptacle receptacle = other.GetComponent<Receptacle>();
+        Inventory receptacleInventory = receptacle.GetInventory();
+        receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 5 });
+        receptacle_ui.RefreshInventoryItems();
+        
     }
 
 //UI Functions -- if want interaction with drone (not done)

@@ -24,13 +24,10 @@ public class Receptacle : MonoBehaviour
 
         //ui_controller = receptacle_ui.GetComponent<UI_Controller>();
         ui_controller = GameObject.Find("ReceptacleUI").GetComponent<UI_Controller>();
-        Debug.Log(ui_controller);
-
         ui_controller.HideUI();
 
         sojourner = GameObject.Find("Sojourner");
         s_controller = sojourner.GetComponent<SojournerController>();
-        Debug.Log(s_controller);
         
     }
 
@@ -76,6 +73,11 @@ public class Receptacle : MonoBehaviour
             
             
         }
+    }
+
+    public Inventory GetInventory()
+    {
+        return inventory;
     }
 
     /*public void Interact()
