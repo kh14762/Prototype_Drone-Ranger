@@ -36,7 +36,7 @@ public class Drone : MonoBehaviour
     void Start() 
     {
         inventory = new Inventory(5);
-        receptacle_ui = GameObject.Find("ReceptacleUI").GetComponent<Receptacle_UI>();
+        receptacle_ui = GameObject.FindGameObjectWithTag("Receptacle").GetComponent<Receptacle_UI>();
         //drone_ui.SetDrone(this);
         //drone_ui.SetInventory(inventory);
         sojourner = GameObject.Find("Sojourner");
@@ -105,24 +105,25 @@ public class Drone : MonoBehaviour
         if(other.CompareTag("Mats"))
         {
             Destroy(other.gameObject);
+            Debug.Log("Picked up mat");
             inventorySpace--;
         } else if (other.CompareTag("Receptacle"))
         {
             //Item[] items;
             inventorySpace = 5;
             //  if the drone contacts receptacle
-            DropOffItems(other);
-           
+            Debug.Log("In contact with receptacle");
+            Receptacle receptacle = other.GetComponent<Receptacle>();
+            Inventory receptacleInventory = receptacle.GetInventory();
+            receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 5 });
         }
     }
 
     private void DropOffItems(Collider other)
     {
-        //  get receptacle inventory
-        Receptacle receptacle = other.GetComponent<Receptacle>();
-        Inventory receptacleInventory = receptacle.GetInventory();
-        receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 5 });
-        receptacle_ui.RefreshInventoryItems();
+           //  get receptacle inventory
+        
+        
         
     }
 
