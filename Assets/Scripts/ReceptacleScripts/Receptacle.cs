@@ -34,7 +34,7 @@ public class Receptacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(s_controller.transform.position, gameObject.transform.position) <= 2)
+        if (Vector3.Distance(s_controller.transform.position, gameObject.transform.position) <= 5)
         {
             Debug.Log("player colliding with receptacle");
             
@@ -61,7 +61,6 @@ public class Receptacle : MonoBehaviour
 
             s_controller.HideUI();
             s_controller.SetIsUiVisible(false);
-            Debug.Log("player no longer colliding with receptacle");
         }
 
     }
