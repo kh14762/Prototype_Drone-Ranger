@@ -34,10 +34,38 @@ public class Receptacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+        if (Vector3.Distance(s_controller.transform.position, gameObject.transform.position) <= 2)
+        {
+            Debug.Log("player colliding with receptacle");
+            
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!ui_controller.GetIsUiVisible())
+                {
+                    ui_controller.ShowUI();
+                    s_controller.ShowUI();
+                    s_controller.SetIsUiVisible(true);
+                }
+                else
+                {
+                    ui_controller.HideUI();
+                    s_controller.HideUI();
+                    s_controller.SetIsUiVisible(false);
+                }
+            }
+        }
+        else
+        {
+            //  Hide receptacle ui
+            ui_controller.HideUI();
+
+            s_controller.HideUI();
+            s_controller.SetIsUiVisible(false);
+            Debug.Log("player no longer colliding with receptacle");
+        }
+
     }
-    private void OnTriggerStay(Collider other)
+   /* private void OnTriggerStay(Collider other)
     {
         //  Set bool is Player colliding to true if collider is player
         if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
@@ -48,19 +76,20 @@ public class Receptacle : MonoBehaviour
                 ui_controller.ShowUI();
                 s_controller.ShowUI();
                 s_controller.SetIsUiVisible(true);
-            } else
+            }
+            else
             {
                 ui_controller.HideUI();
                 s_controller.HideUI();
                 s_controller.SetIsUiVisible(false);
             }
-            
-
 
         }
-    }
+    }*/
 
-    private void OnTriggerExit(Collider other)
+
+
+   /* private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -73,7 +102,7 @@ public class Receptacle : MonoBehaviour
             
             
         }
-    }
+    }*/
 
     public Inventory GetInventory()
     {
