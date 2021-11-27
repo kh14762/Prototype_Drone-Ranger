@@ -29,8 +29,11 @@ public class Drone : MonoBehaviour
     private Receptacle_UI receptacle_ui;
     [SerializeField] private Drone_UI drone_ui;
 
-    
-    
+    //movement flags for animation controller
+    private bool isMoving;
+
+
+
 
     // Start is called before the first frame update
     void Start() 
@@ -46,13 +49,23 @@ public class Drone : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){ //replaces LateUpdate or change back it back to LateUpdate()
+    void Update()
+    { //replaces LateUpdate or change back it back to LateUpdate()
         matInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsMat);
         if(matInSightRange){
             if (inventorySpace != 0){ MoveToMats(); }
             else{ MoveToReceptacle(); }
         }else{
             MoveToReceptacle();
+        }
+
+        if (transform.hasChanged)
+        {
+            isMoving = true;
+            transform.hasChanged = false;
+        } else
+        {
+            isMoving = false;
         }
     }
     private void OnDrawGizmosSelected() //shows sightrange
@@ -127,7 +140,12 @@ public class Drone : MonoBehaviour
         
     }
 
-//UI Functions -- if want interaction with drone (not done)
+    //  functions for animation control
+    public bool IsMoving
+    {
+        get { return isMoving; }
+    }
+    //UI Functions -- if want interaction with drone (not done)
     // private void OnTriggerExit(Collider other)
     // {
     //     if (other.gameObject.CompareTag("Player"))
@@ -146,7 +164,7 @@ public class Drone : MonoBehaviour
     //         this.HideUI();
     //     }
     // }
-    
+
     // public void Interact()
     // {
     //     ShowUI();
