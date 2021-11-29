@@ -58,9 +58,9 @@ public class Receptacle : MonoBehaviour
         {
             //  Hide receptacle ui
             ui_controller.HideUI();
+                
 
-            s_controller.HideUI();
-            s_controller.SetIsUiVisible(false);
+           
         }
 
     }
