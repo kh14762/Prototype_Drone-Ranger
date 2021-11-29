@@ -12,7 +12,6 @@ public class UI_Controller : MonoBehaviour
 
     void Start()
     {
-
         canvasGroup = GetComponent<CanvasGroup>();
     }
 

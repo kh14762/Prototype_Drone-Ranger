@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
+public class RefiningSystem : MonoBehaviour, IItemHolder
 {
     private Item item;
     private Dictionary<Item.ItemType, Item.ItemType> recipeDictionary;
@@ -11,7 +11,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
     public event EventHandler OnChange;
 
     Coroutine refiningCoroutine;
-    public ProgressBar progressBar;
+    private ProgressBar progressBar;
     private int refiningTime;
     private float progressTime;
     private bool isRefining;
@@ -22,8 +22,12 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
     private SojournerController s_controller;
     [SerializeField] private UI_RefiningSystem uiRefiningSystem;
 
+    //  UI Control
+    private UI_Controller ui_controller;
+
     void Start()
     {
+        uiRefiningSystem = GameObject.Find("UI_RefiningSystem").GetComponent<UI_RefiningSystem>();
         uiRefiningSystem.SetRefiningSystem(this);
 
         //-------------------------------------------------------------Recipes-------------------------------------------------------------//
@@ -47,6 +51,9 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         //---------------------------------------------------End of Recipes---------------------------------------------------------------//
 
         //  Progress Bar system
+        //  set progress bar
+        progressBar = GameObject.Find("ProgressBar").GetComponent<ProgressBar>();
+        Debug.Log(progressBar);
         isRefining = false;
         refiningTime = 1;
         progressTime = 0;
@@ -54,7 +61,10 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         //  Set Sojourner controller
         sojourner = GameObject.Find("Sojourner");
         s_controller = sojourner.GetComponent<SojournerController>();
-        this.HideUI();
+
+        //  set ui controller
+        ui_controller = GameObject.Find("UI_RefiningSystem").GetComponent<UI_Controller>();
+        ui_controller.HideUI();
     }
 
     void Update()
@@ -70,32 +80,7 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
             progressTime = 0;
             progressBar.SetTime(progressTime);
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            SetIsPlayerColliding(true);
-            Debug.Log("player colliding with Refining Station");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            SetIsPlayerColliding(false);
-            if (s_controller.GetIsRefUIVis() == true)
-            {
-                s_controller.HideUI();
-                s_controller.SetIsRefUIVis(false);
-            }
-            s_controller.SetIsRefUIVis(false);
-            s_controller.SetIsUiVisible(false);
-            Debug.Log("player no longer with Refining Station");
-            this.HideUI();
-        }
+        ToggleInventory();
     }
 
     public bool IsEmpty()
@@ -323,29 +308,32 @@ public class RefiningSystem : MonoBehaviour, IItemHolder, IInteractable
         OnChange.Invoke(this, EventArgs.Empty);
     }
 
-    public void ShowUI()
+    public void ToggleInventory()
     {
-        uiRefiningSystem.GetCanvasGroup().alpha = 1f;
-        uiRefiningSystem.GetCanvasGroup().blocksRaycasts = true;
-    }
-    public void HideUI()
-    {
-        uiRefiningSystem.GetCanvasGroup().alpha = 0f;
-        uiRefiningSystem.GetCanvasGroup().blocksRaycasts = false;
-    }
+        if (Vector3.Distance(s_controller.transform.position, gameObject.transform.position) <= 5)
+        {
+            Debug.Log("player colliding with receptacle");
 
-    public void SetIsPlayerColliding(bool isPlayerColliding)
-    {
-        this.isPlayerColliding = isPlayerColliding;
-    }
-
-    public bool GetIsPlayerColliding()
-    {
-        return isPlayerColliding;
-    }
-
-    public void Interact()
-    {
-        ShowUI();
-    }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!ui_controller.GetIsUiVisible())
+                {
+                    ui_controller.ShowUI();
+                    s_controller.ShowUI();
+                    s_controller.SetIsUiVisible(true);
+                }
+                else
+                {
+                    ui_controller.HideUI();
+                    s_controller.HideUI();
+                    s_controller.SetIsUiVisible(false);
+                }
+            }
+        }
+        else
+        {
+            //  Hide receptacle ui
+            ui_controller.HideUI();
+        }
+    }//  endof: TogglerInventory()
 }

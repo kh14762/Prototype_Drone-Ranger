@@ -34,10 +34,15 @@ public class Receptacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ToggleInventory();
+    }
+
+    public void ToggleInventory()
+    {
         if (Vector3.Distance(s_controller.transform.position, gameObject.transform.position) <= 5)
         {
             Debug.Log("player colliding with receptacle");
-            
+
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!ui_controller.GetIsUiVisible())
@@ -58,90 +63,13 @@ public class Receptacle : MonoBehaviour
         {
             //  Hide receptacle ui
             ui_controller.HideUI();
-                
-
-           
         }
-
     }
-   /* private void OnTriggerStay(Collider other)
-    {
-        //  Set bool is Player colliding to true if collider is player
-        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("player colliding with receptacle");
-            if (!ui_controller.GetIsUiVisible())
-            {
-                ui_controller.ShowUI();
-                s_controller.ShowUI();
-                s_controller.SetIsUiVisible(true);
-            }
-            else
-            {
-                ui_controller.HideUI();
-                s_controller.HideUI();
-                s_controller.SetIsUiVisible(false);
-            }
-
-        }
-    }*/
-
-
-
-   /* private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //  Hide receptacle ui
-            ui_controller.HideUI();
-            
-            s_controller.HideUI();
-            s_controller.SetIsUiVisible(false);
-            Debug.Log("player no longer colliding with receptacle");
-            
-            
-        }
-    }*/
 
     public Inventory GetInventory()
     {
         return inventory;
     }
 
-    /*public void Interact()
-    {
-        ShowUI();
-    }
-
-    public void ShowUI()
-    {
-        receptacle_ui.GetCanvasGroup().alpha = 1f;
-        receptacle_ui.GetCanvasGroup().blocksRaycasts = true;
-    }
-    public void HideUI()
-    {
-        receptacle_ui.GetCanvasGroup().alpha = 0f;
-        receptacle_ui.GetCanvasGroup().blocksRaycasts = false;
-    }
-
-
-    public void SetIsPlayerColliding(bool isPlayerColliding)
-    {
-        this.isPlayerColliding = isPlayerColliding;
-    }
-
-    public bool GetIsPlayerColliding()
-    {
-        return isPlayerColliding;
-    }
-    public void SetReceptacleUI(Receptacle_UI receptacle_ui)
-    {
-        this.receptacle_ui = receptacle_ui;
-    }
-
-    public Receptacle_UI GetReceptacleUI()
-    {
-        return receptacle_ui;
-    }*/
 
 }
