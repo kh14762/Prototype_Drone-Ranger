@@ -20,7 +20,7 @@ public class Drone : MonoBehaviour
 
 
     //inventory space and UI
-    public float inventorySpace = 5.0f;
+    public float inventorySpace = 6.0f;
     private GameObject sojourner;
     // private SojournerController s_controller; --for drone interactions
     // private bool isPlayerColliding;
@@ -28,7 +28,7 @@ public class Drone : MonoBehaviour
     private UI_Inventory ui_inventory;
     private Receptacle_UI receptacle_ui;
     [SerializeField] private Drone_UI drone_ui;
-
+    private int numOfMats;
     //movement flags for animation controller
     private bool isMoving;
 
@@ -103,7 +103,9 @@ public class Drone : MonoBehaviour
     {
         goal2 = GameObject.FindGameObjectWithTag("Receptacle").GetComponent<BoxCollider>().transform;
         // Go to the edge of receptacle collider
+        
         agent.SetDestination(goal2.position);
+        agent.stoppingDistance = 3.2f;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -120,6 +122,7 @@ public class Drone : MonoBehaviour
             Destroy(other.gameObject);
             Debug.Log("Picked up mat");
             inventorySpace--;
+            numOfMats++;
         } else if (other.CompareTag("Receptacle"))
         {
             //Item[] items;
@@ -128,7 +131,7 @@ public class Drone : MonoBehaviour
             Debug.Log("In contact with receptacle");
             Receptacle receptacle = other.GetComponent<Receptacle>();
             Inventory receptacleInventory = receptacle.GetInventory();
-            receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 5 });
+            receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = numOfMats });
         }
     }
 
