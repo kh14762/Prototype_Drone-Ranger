@@ -103,7 +103,9 @@ public class Drone : MonoBehaviour
     {
         goal2 = GameObject.FindGameObjectWithTag("Receptacle").GetComponent<BoxCollider>().transform;
         // Go to the edge of receptacle collider
+        
         agent.SetDestination(goal2.position);
+        agent.stoppingDistance = 3.2f;
     }
     private void OnTriggerEnter(Collider other)
     {
