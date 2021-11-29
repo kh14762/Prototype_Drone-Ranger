@@ -56,12 +56,12 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
-        // temporary health and stam reset for testing
+        /*// temporary health and stam reset for testing
         if (Input.GetKeyDown(KeyCode.Q))
         {
             playerStats.SetHealth(playerStats.maxHealth);
             playerStats.SetStamina(playerStats.maxStamina);
-        }
+        }*/
 
     }
 

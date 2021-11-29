@@ -1015,7 +1015,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2665474, y: 1}
+    m_SensorSize: {x: 2.755011, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1432,14 +1432,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e438f52c7703e24392dabc5542d4a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
-  sojournerController: {fileID: 0}
+  playerStats: {fileID: 1720280105}
+  sojournerController: {fileID: 1720280099}
   cinemachineFreeLook: {fileID: 253377114}
   respawnButton: {fileID: 303579018}
   isGameActive: 0
+  cursorLock: 0
   pfReceptacle: {fileID: 7316013242653060161, guid: df66710bf69bf1d4e9686c94467a43f5, type: 3}
   pfRefiner: {fileID: 7316013242653060161, guid: 8658d066c1842424cb753fd881a53f64, type: 3}
-  pfPrinter: {fileID: 0}
 --- !u!4 &478118372
 Transform:
   m_ObjectHideFlags: 0
@@ -2996,7 +2996,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2665474, y: 1}
+    m_SensorSize: {x: 2.755011, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3046,6 +3046,11 @@ RectTransform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1038956791307416559, guid: 7ea88a32a6138ab44a6854ad26faaa01, type: 3}
   m_PrefabInstance: {fileID: 799099526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &946109444 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2875994218607650293, guid: c1987d066c1e60b46b3561934171fb5e, type: 3}
+  m_PrefabInstance: {fileID: 1529512391}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &953708522
 GameObject:
@@ -4172,6 +4177,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5050,7 +5056,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2665474, y: 1}
+    m_SensorSize: {x: 2.755011, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5289,6 +5295,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5725,6 +5732,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5961,14 +5969,16 @@ MonoBehaviour:
   healthBar: {fileID: 811044010}
   staminaBar: {fileID: 1583269383}
   sojournerController: {fileID: 1720280099}
+  animator: {fileID: 946109444}
   stats: {fileID: 2078257481}
+  isDead: 0
   maxHealth: 100
   maxStamina: 1000
   stamUseCD: 0
   damage:
     baseStat: 10
   armor:
-    baseStat: 100
+    baseStat: 0
   attackSpeed:
     baseStat: 2
 --- !u!114 &1720280106
@@ -6404,6 +6414,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -6730,6 +6741,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -7551,8 +7563,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.16047135, y: -0.000000027367847, z: -1.0051504e-10, w: 0.9870405}
-  m_LocalPosition: {x: 0.00000047683716, y: -5.137255e-19, z: 1.23088626e-14}
+  m_LocalRotation: {x: 0.16047135, y: 0.0000000024079876, z: 0.0000000043106256, w: 0.9870405}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2128429543}
@@ -7595,7 +7607,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2665474, y: 1}
+    m_SensorSize: {x: 2.755011, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

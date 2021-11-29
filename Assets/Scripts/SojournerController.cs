@@ -75,10 +75,10 @@ public class SojournerController : MonoBehaviour
         enableInput = true;
 
         // Lock cursor when playing
-        Cursor.lockState = CursorLockMode.Confined; // keep confined in the game window
-        Cursor.lockState = CursorLockMode.Locked; // keeps curose locked at the center of screen
+        //Cursor.lockState = CursorLockMode.Confined; // keep confined in the game window
+        //Cursor.lockState = CursorLockMode.Locked; // keeps curose locked at the center of screen
 
-
+        
 
 
         //  Set ui_Printer
@@ -156,7 +156,7 @@ public class SojournerController : MonoBehaviour
             //  Toggle Player Inventory
             if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == true)
             {
-                Cursor.lockState = CursorLockMode.Locked; // lock cursor
+               // Cursor.lockState = CursorLockMode.Locked; // lock cursor
                 // enable camera rotation
                 cinemachineFreeLook.m_XAxis.m_MaxSpeed = camXAxisSpeed;
                 cinemachineFreeLook.m_YAxis.m_MaxSpeed = camYAxisSpeed;
@@ -165,7 +165,7 @@ public class SojournerController : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Tab) && isUiVisible == false)
             {
-                Cursor.lockState = CursorLockMode.None; // unlock cursor
+               // Cursor.lockState = CursorLockMode.None; // unlock cursor
                 // disable camera rotation
                 cinemachineFreeLook.m_XAxis.m_MaxSpeed = 0;
                 cinemachineFreeLook.m_YAxis.m_MaxSpeed = 0;

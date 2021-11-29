@@ -24,16 +24,20 @@ public class EnemyCombat : MonoBehaviour
 
     public void Attack(PlayerStats playerStats)
     {
-        if (attackCD <= 0f)
+        if (!playerStats.isDead)
         {
-            weapon.Attack();
-            if (playerStats != null)
+            if (attackCD <= 0f)
             {
-                StartCoroutine(DoDmg(playerStats, attackDelay));
-                
+                weapon.Attack();
+                if (playerStats != null)
+                {
+                    StartCoroutine(DoDmg(playerStats, attackDelay));
+
+                }
+                attackCD = 3; // change attack cooldown
             }
-            attackCD = 3; // change attack cooldown
         }
+        
 
     }
 

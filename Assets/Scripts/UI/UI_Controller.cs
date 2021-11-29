@@ -24,14 +24,14 @@ public class UI_Controller : MonoBehaviour
 
     public void ShowUI()
     {
-        Cursor.lockState = CursorLockMode.None; // unlock cursor
+       // Cursor.lockState = CursorLockMode.None; // unlock cursor
         GetCanvasGroup().alpha = 1f;
         GetCanvasGroup().blocksRaycasts = true;
         SetIsUiVisible(true);
     }
     public void HideUI()
     {
-        Cursor.lockState = CursorLockMode.Locked; // lock cursor
+        //Cursor.lockState = CursorLockMode.Locked; // lock cursor
         GetCanvasGroup().alpha = 0f;
         GetCanvasGroup().blocksRaycasts = false;
         SetIsUiVisible(false);

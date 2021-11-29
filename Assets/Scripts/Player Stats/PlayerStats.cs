@@ -12,7 +12,9 @@ public class PlayerStats : MonoBehaviour
     public SojournerController sojournerController;
     private Coroutine stamRegen;
     private Coroutine healthRegen;
+    [SerializeField] private Animator animator;
     [SerializeField] TextMeshProUGUI stats;
+    public bool isDead;
 
     public int maxHealth = 100;
     public int currentHealth { get; private set; } // get value from anywhere but only set it in this class
@@ -30,8 +32,8 @@ public class PlayerStats : MonoBehaviour
 
 
     public void Awake()
-    { 
-
+    {
+        animator.SetBool("isAlive", true);
         // set max health of sojourner
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
@@ -39,6 +41,12 @@ public class PlayerStats : MonoBehaviour
         // set max stamina of sojourner
         currentStamina = maxStamina;
         staminaBar.SetMaxStamina(maxStamina);
+
+        isDead = false;
+        
+        
+
+
     }
 
     private void Update()
@@ -78,6 +86,7 @@ public class PlayerStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            isDead = true;
         }
     }
 
@@ -167,6 +176,9 @@ public class PlayerStats : MonoBehaviour
 
 
         // death animation
+        animator.SetTrigger("dead");
+        animator.SetBool("isAlive", false);
+
     }
 
     public void SetHealth(int health)

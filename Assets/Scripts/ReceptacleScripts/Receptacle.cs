@@ -35,6 +35,8 @@ public class Receptacle : MonoBehaviour
     void Update()
     {
         ToggleInventory();
+        
+        
     }
 
     public void ToggleInventory()
@@ -63,6 +65,7 @@ public class Receptacle : MonoBehaviour
         {
             //  Hide receptacle ui
             ui_controller.HideUI();
+            
         }
     }
 
