@@ -60,6 +60,9 @@ public class Item
             case ItemType.MetalScrap:       return ItemAssets.Instance.MetalScrapSprite;
             case ItemType.PolymerScrap:     return ItemAssets.Instance.PolymerScrapSprite;
             case ItemType.SiliconScrap:     return ItemAssets.Instance.SiliconScrapSprite;
+            case ItemType.RefinedMetal:     return ItemAssets.Instance.RefinedMetalSprite;
+            case ItemType.RefinedPolymer:   return ItemAssets.Instance.RefinedPolymerSprite;
+            case ItemType.RefinedSilicon:   return ItemAssets.Instance.RefinedSiliconSprite;
         }
     }
 

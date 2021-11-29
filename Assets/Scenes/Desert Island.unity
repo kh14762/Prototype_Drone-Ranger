@@ -1015,7 +1015,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.388031, y: 1}
+    m_SensorSize: {x: 2.2665474, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2952,7 +2952,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899556985}
-  m_LocalRotation: {x: 0.14249104, y: -0.000000028059542, z: -7.137426e-10, w: 0.9897961}
+  m_LocalRotation: {x: 0.14249104, y: -0.0000000281746, z: -7.31847e-10, w: 0.9897961}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2996,7 +2996,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.388031, y: 1}
+    m_SensorSize: {x: 2.2665474, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -4177,7 +4177,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5012,7 +5011,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566408608}
-  m_LocalRotation: {x: 0.12451124, y: -0.000000042158934, z: -0.0000000038404697, w: 0.9922182}
+  m_LocalRotation: {x: 0.12451124, y: -0.000000042274216, z: -0.0000000038567696, w: 0.9922182}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5056,7 +5055,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.388031, y: 1}
+    m_SensorSize: {x: 2.2665474, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5295,7 +5294,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5732,7 +5730,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -6414,7 +6411,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -6741,7 +6737,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -7215,9 +7210,9 @@ MonoBehaviour:
   MetalScrapSprite: {fileID: 21300000, guid: 324ffa2b5a759784eac6b8dab84fe11b, type: 3}
   PolymerScrapSprite: {fileID: 21300000, guid: a3ce307783c0bf64ca2c6fdd25d3e97c, type: 3}
   SiliconScrapSprite: {fileID: 21300000, guid: c0c4aacf253c71546a3c7761a9703a85, type: 3}
-  RefinedMetal: {fileID: 0}
-  RefinedPolymer: {fileID: 0}
-  RefinedSilicon: {fileID: 0}
+  RefinedMetalSprite: {fileID: 21300000, guid: 44c9801f141d49042aaf8e26904f51c3, type: 3}
+  RefinedPolymerSprite: {fileID: 21300000, guid: 253dfa7bfac41bb438efeac3390058d2, type: 3}
+  RefinedSiliconSprite: {fileID: 21300000, guid: 0332de190583c664184310f6e0f4dbc1, type: 3}
 --- !u!1001 &2042479021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7563,7 +7558,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117471591}
-  m_LocalRotation: {x: 0.16047135, y: -0.000000027252337, z: -8.602008e-11, w: 0.9870405}
+  m_LocalRotation: {x: 0.16047135, y: -0.000000027367847, z: -1.0051504e-10, w: 0.9870405}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -7607,7 +7602,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.388031, y: 1}
+    m_SensorSize: {x: 2.2665474, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
