@@ -24,7 +24,7 @@ public class UI_Controller : MonoBehaviour
 
     public void ShowUI()
     {
-       // Cursor.lockState = CursorLockMode.None; // unlock cursor
+        //Cursor.lockState = CursorLockMode.None; // unlock cursor
         GetCanvasGroup().alpha = 1f;
         GetCanvasGroup().blocksRaycasts = true;
         SetIsUiVisible(true);
