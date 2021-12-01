@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public Button respawnButton;
     public bool isGameActive;
     public bool cursorLock;
+    public GameObject printer;
+    private Vector3 printerLoc;
 
     //  Manufactoring Systems
     public GameObject pfReceptacle;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        printerLoc = printer.transform.position;
         if (Input.GetKeyDown(KeyCode.Q))
         {
 
@@ -72,7 +75,7 @@ public class GameManager : MonoBehaviour
         respawnButton.gameObject.SetActive(false); // hide respawn button
         isGameActive = true;
         //Cursor.lockState = CursorLockMode.Locked; // lock cursor
-        sojournerController.transform.position = new Vector3(0, -4, 8); // set sojourner position
+        sojournerController.transform.position = printerLoc; // set sojourner position
         cinemachineFreeLook.gameObject.SetActive(true); // enable camera
     }
 }
