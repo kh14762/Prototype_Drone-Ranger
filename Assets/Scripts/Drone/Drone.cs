@@ -20,7 +20,7 @@ public class Drone : MonoBehaviour
 
 
     //inventory space and UI
-    public float inventorySpace = 6.0f;
+    //public float inventorySpace = 6.0f;
     private GameObject sojourner;
     // private SojournerController s_controller; --for drone interactions
     // private bool isPlayerColliding;
@@ -28,7 +28,7 @@ public class Drone : MonoBehaviour
     private UI_Inventory ui_inventory;
     private Receptacle_UI receptacle_ui;
     [SerializeField] private Drone_UI drone_ui;
-    private int numOfMats;
+    public int numOfMats = 0;
     //movement flags for animation controller
     private bool isMoving;
 
@@ -53,8 +53,13 @@ public class Drone : MonoBehaviour
     { //replaces LateUpdate or change back it back to LateUpdate()
         matInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsMat);
         if(matInSightRange){
-            if (inventorySpace != 0){ MoveToMats(); }
-            else{ MoveToReceptacle(); }
+            if (numOfMats < 5){
+                MoveToResourceNode();
+            }
+            else{
+                CancelInvoke();
+                MoveToReceptacle();
+            }
         }else{
             MoveToReceptacle();
         }
@@ -74,29 +79,30 @@ public class Drone : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
-     public GameObject FindClosestEnemy()
-    {
-        GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag("Mats");
-        GameObject closest = null;
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach (GameObject go in gos)
-        {
-            Vector3 diff = go.transform.position - position;
-            float curDistance = diff.sqrMagnitude;
-            if (curDistance < distance)
-            {
-                closest = go;
-                distance = curDistance;
-            }
-        }
-        return closest;
-    }
+   //  public GameObject FindClosestEnemy()
+    //{
+     //   GameObject[] gos;
+       // gos = GameObject.FindGameObjectsWithTag("Mats");
+       // GameObject closest = null;
+       // float distance = Mathf.Infinity;
+       // Vector3 position = transform.position;
+       // foreach (GameObject go in gos)
+       // {
+       //     Vector3 diff = go.transform.position - position;
+       //     float curDistance = diff.sqrMagnitude;
+       //     if (curDistance < distance)
+       //     {
+       //         closest = go;
+       //         distance = curDistance;
+       //     }
+       // }
+       // return closest;
+    //}
 
-    private void MoveToMats(){
-        goal = GameObject.FindGameObjectWithTag("Mats").transform;
-        agent.SetDestination(FindClosestEnemy().transform.position);
+    private void MoveToResourceNode(){
+        goal = GameObject.FindGameObjectWithTag("ResourceNode").transform;
+        agent.stoppingDistance = 1.0f;
+        agent.SetDestination(goal.position);
         
     }
     private void MoveToReceptacle()
@@ -117,30 +123,30 @@ public class Drone : MonoBehaviour
         // }
 
 
-        if(other.CompareTag("Mats"))
+        if(other.CompareTag("ResourceNode"))
         {
-            Destroy(other.gameObject);
-            Debug.Log("Picked up mat");
-            inventorySpace--;
-            numOfMats++;
+
+            Debug.Log("In contact with resource node");
+            //inventorySpace--;
+            InvokeRepeating("IncrementByOne", 1f, 1f);
         } else if (other.CompareTag("Receptacle"))
         {
+            
             //Item[] items;
-            inventorySpace = 5;
+            //inventorySpace = 5;
+            
             //  if the drone contacts receptacle
             Debug.Log("In contact with receptacle");
             Receptacle receptacle = other.GetComponent<Receptacle>();
             Inventory receptacleInventory = receptacle.GetInventory();
             receptacleInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = numOfMats });
+            numOfMats = 0;
         }
     }
 
-    private void DropOffItems(Collider other)
+    void IncrementByOne()
     {
-           //  get receptacle inventory
-        
-        
-        
+        numOfMats++;
     }
 
     //  functions for animation control
