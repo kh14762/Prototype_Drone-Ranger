@@ -4,13 +4,15 @@ using UnityEngine;
 public class ResourceNode : MonoBehaviour
 {
     private GameObject player;
+    private SojournerController sjController;
     private Inventory playerInventory;
     private bool isCoroutineRunning;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Sojourner");
-        playerInventory = player.GetComponent<Inventory>();
+        sjController = player.GetComponent<SojournerController>();
+        playerInventory = sjController.GetInventory();
         isCoroutineRunning = false;
     }
 
@@ -21,6 +23,7 @@ public class ResourceNode : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.F))
             {
+                Debug.Log("player holding f key down");
                 if (isCoroutineRunning)
                 {
                     Debug.Log("Starting Coroutine");
@@ -29,20 +32,16 @@ public class ResourceNode : MonoBehaviour
             }
             if (Input.GetKeyUp(KeyCode.F))
             {
-
+                Debug.Log("player no longer holding f key down");
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-       
     }
 
     // Raw material corountine 
     IEnumerator Countdown()
     {
         //Add materials to player inventory here
+        Debug.Log(playerInventory);
         playerInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
         yield return new WaitForSeconds(3);
     }
