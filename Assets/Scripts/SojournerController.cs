@@ -223,6 +223,11 @@ public class SojournerController : MonoBehaviour
         return transform.position;
     }
 
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
     public void UseItem(Item inventoryItem)
     {
         Debug.Log("Use Item: " + inventoryItem);
