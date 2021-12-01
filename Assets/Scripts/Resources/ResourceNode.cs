@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public class ResourceNode : MonoBehaviour
 {
     private GameObject player;
     private SojournerController sjController;
     private Inventory playerInventory;
     private bool isCoroutineRunning;
+    public Item[] rawMaterials;
+    public Slider resource;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,35 +17,49 @@ public class ResourceNode : MonoBehaviour
         sjController = player.GetComponent<SojournerController>();
         playerInventory = sjController.GetInventory();
         isCoroutineRunning = false;
+        resource.value = 0;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        // fill bar
+        StartCoroutine(Countdown());
+        // gather resource if player is close to a node
         if (Vector3.Distance(player.transform.position, gameObject.transform.position) <= 5)
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F) && resource.value == 100)
             {
-                Debug.Log("player holding f key down");
-                if (isCoroutineRunning)
-                {
-                    Debug.Log("Starting Coroutine");
-                    StartCoroutine(Countdown());
-                }
+                // insert item into inventory
+
+                // reset progress bar
+                resource.value = 0;
             }
-            if (Input.GetKeyUp(KeyCode.F))
-            {
-                Debug.Log("player no longer holding f key down");
-            }
+
+
+
         }
     }
 
     // Raw material corountine 
     IEnumerator Countdown()
     {
-        //Add materials to player inventory here
-        Debug.Log(playerInventory);
-        playerInventory.AddItem(new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.1f);
+        resource.value += 1;
+
     }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player && Input.GetKeyDown(KeyCode.F))
+        {
+            while (true)
+            {
+                StartCoroutine(Countdown());
+            }
+        }
+    }*/
+
+
 }
