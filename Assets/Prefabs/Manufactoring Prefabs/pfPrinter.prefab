@@ -98,6 +98,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3DPrinter
       objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: c7aee56e176faf04ea2aa6b65ddecd81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -29.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: c7aee56e176faf04ea2aa6b65ddecd81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: c7aee56e176faf04ea2aa6b65ddecd81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.52
+      objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: c7aee56e176faf04ea2aa6b65ddecd81, type: 3}
       propertyPath: m_Name
       value: box
