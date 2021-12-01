@@ -50,16 +50,5 @@ public class ResourceNode : MonoBehaviour
 
     }
 
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player && Input.GetKeyDown(KeyCode.F))
-        {
-            while (true)
-            {
-                StartCoroutine(Countdown());
-            }
-        }
-    }*/
-
-
+  
 }
