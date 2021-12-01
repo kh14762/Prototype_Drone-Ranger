@@ -10,15 +10,14 @@ public class ResourceNode : MonoBehaviour
     private bool isCoroutineRunning;
     public Item[] rawMaterials;
     public Slider resource;
+    private Coroutine countdown;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Sojourner");
         sjController = player.GetComponent<SojournerController>();
-        playerInventory = sjController.GetInventory();
         isCoroutineRunning = false;
         resource.value = 0;
-
     }
 
     // Update is called once per frame
@@ -32,34 +31,18 @@ public class ResourceNode : MonoBehaviour
             if (Input.GetKey(KeyCode.F) && resource.value == 100)
             {
                 // insert item into inventory
-
+                //StartCoroutine(Countdown());
                 // reset progress bar
+                playerInventory = sjController.GetInventory();
+                playerInventory.AddItemMergeAmount(new Item { itemType = Item.ItemType.MetalScrap, amount = 1 });
                 resource.value = 0;
             }
-
-
-
         }
     }
-
     // Raw material corountine 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         resource.value += 1;
-
     }
-
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player && Input.GetKeyDown(KeyCode.F))
-        {
-            while (true)
-            {
-                StartCoroutine(Countdown());
-            }
-        }
-    }*/
-
-
 }
