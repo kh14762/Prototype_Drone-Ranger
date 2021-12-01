@@ -101,7 +101,7 @@ public class Drone : MonoBehaviour
 
     private void MoveToResourceNode(){
         goal = GameObject.FindGameObjectWithTag("ResourceNode").transform;
-        agent.stoppingDistance = 1.0f;
+        agent.stoppingDistance = 2.3f;
         agent.SetDestination(goal.position);
         
     }

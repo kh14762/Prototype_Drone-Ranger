@@ -11,6 +11,7 @@ TagManager:
   - Enemy Attack
   - Attack
   - ReceptacleUI
+  - ResourceNode
   layers:
   - Default
   - TransparentFX
