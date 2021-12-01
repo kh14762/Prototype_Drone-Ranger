@@ -99,10 +99,30 @@ public class Drone : MonoBehaviour
        // return closest;
     //}
 
+    public GameObject FindClosest()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("ResourceNode");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+        return closest;
+    }
+
     private void MoveToResourceNode(){
         goal = GameObject.FindGameObjectWithTag("ResourceNode").transform;
         agent.stoppingDistance = 1.5f;
-        agent.SetDestination(goal.position);
+        agent.SetDestination(FindClosest().transform.position);
         
     }
     private void MoveToReceptacle()
