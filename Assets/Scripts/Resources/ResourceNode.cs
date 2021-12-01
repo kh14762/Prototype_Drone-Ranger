@@ -18,6 +18,7 @@ public class ResourceNode : MonoBehaviour
         sjController = player.GetComponent<SojournerController>();
         isCoroutineRunning = false;
         resource.value = 0;
+        resource.maxValue = 500;
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class ResourceNode : MonoBehaviour
         // gather resource if player is close to a node
         if (Vector3.Distance(player.transform.position, gameObject.transform.position) <= 5)
         {
-            if (Input.GetKey(KeyCode.F) && resource.value == 100)
+            if (Input.GetKey(KeyCode.F) && resource.value == 500)
             {
                 // insert item into inventory
                 //StartCoroutine(Countdown());
@@ -42,7 +43,7 @@ public class ResourceNode : MonoBehaviour
     // Raw material corountine 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.1f);
         resource.value += 1;
     }
 }
